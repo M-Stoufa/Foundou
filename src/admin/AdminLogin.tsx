@@ -1,9 +1,16 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, Lock, Mail, TriangleAlert } from 'lucide-react';
 import { publishedCategories, allItems } from '../data/menu';
 import { currentMenu } from '../data/menuStorage';
 import { Brand } from '../components/Brand';
 import { supabase, supabaseConfigured } from '../lib/supabase';
+import {
+  formatTimeLeft,
+  getLoginRateLimitStatus,
+  recordLoginFailure,
+  recordLoginSuccess,
+  type LoginRateLimitStatus,
+} from '../lib/loginRateLimit';
 
 interface AdminLoginProps {
   onEnter: () => void;
@@ -14,29 +21,63 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [rateStatus, setRateStatus] = useState<LoginRateLimitStatus | null>(null);
+  const [now, setNow] = useState(() => Date.now());
 
   const menu = currentMenu();
   const categories = publishedCategories(menu);
   const published = categories.reduce((total, category) => total + category.items.length, 0);
   const pending = allItems(menu).filter((item) => item.status === 'pending').length;
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setNow(Date.now());
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const refreshRateStatus = () => {
+    const email = emailRef.current?.value.trim() ?? '';
+    if (!email) {
+      setRateStatus(null);
+      return;
+    }
+    setRateStatus(getLoginRateLimitStatus(email));
+  };
+
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (busy) return;
 
-    setBusy(true);
-    setError(null);
-
     const email = emailRef.current?.value.trim() ?? '';
     const password = passwordRef.current?.value ?? '';
 
-    if (!supabase) {
+    if (!email) {
+      setError('Veuillez renseigner votre adresse e-mail.');
+      return;
+    }
+
+    const status = getLoginRateLimitStatus(email);
+    setRateStatus(status);
+
+    if (status.blocked && status.blockedUntil && status.blockedUntil > Date.now()) {
+      setError(
+        `Trop de tentatives échouées. Accès à l'espace propriétaire bloqué pendant ${formatTimeLeft(
+          status.blockedUntil - Date.now(),
+        )}.`,
+      );
+      return;
+    }
+
+    if (!supabaseConfigured || !supabase) {
       setError(
         'Connexion indisponible : la configuration Supabase est absente de ce déploiement.',
       );
-      setBusy(false);
       return;
     }
+
+    setBusy(true);
+    setError(null);
 
     try {
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
@@ -45,13 +86,29 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
       });
 
       if (signInError) {
-        setError("Identifiants incorrects.");
+        const failure = recordLoginFailure(email);
+        setRateStatus(failure);
+        if (failure.blocked && failure.blockedUntil) {
+          setError(
+            `Trop de tentatives échouées. Accès à l'espace propriétaire bloqué pendant ${formatTimeLeft(
+              failure.blockedUntil - Date.now(),
+            )}.`,
+          );
+        } else {
+          setError(
+            `Identifiants incorrects. Il vous reste ${failure.remaining} tentative${
+              failure.remaining > 1 ? 's' : ''
+            } sur ${failure.maxAttempts} avant blocage d'1 heure.`,
+          );
+        }
         setBusy(false);
         return;
       }
 
       const user = data.user;
       if (!user) {
+        const failure = recordLoginFailure(email);
+        setRateStatus(failure);
         setError("Impossible de se connecter.");
         setBusy(false);
         return;
@@ -65,6 +122,8 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
 
       if (ownerError) {
         await supabase.auth.signOut();
+        const failure = recordLoginFailure(email);
+        setRateStatus(failure);
         setError("Vérification des droits impossible.");
         setBusy(false);
         return;
@@ -72,17 +131,29 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
 
       if (!ownerRow) {
         await supabase.auth.signOut();
+        const failure = recordLoginFailure(email);
+        setRateStatus(failure);
         setError("Ce compte n'est pas autorisé à accéder à l'espace propriétaire.");
         setBusy(false);
         return;
       }
 
+      recordLoginSuccess(email);
+      setRateStatus(null);
       onEnter();
     } catch {
+      const failure = recordLoginFailure(email);
+      setRateStatus(failure);
       setError("Une erreur est survenue lors de la connexion.");
       setBusy(false);
     }
   };
+
+  const blockedNow =
+    rateStatus?.blocked && rateStatus.blockedUntil && rateStatus.blockedUntil > now
+      ? rateStatus.blockedUntil
+      : null;
+  const isBlocked = Boolean(blockedNow);
 
   return (
     <div className="login">
@@ -131,7 +202,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
               </p>
               <p className="login__notice-text">
                 {supabaseConfigured
-                  ? 'Seul le compte présent dans la liste autorisée peut se connecter. Les identifiants sont vérifiés par Supabase Auth.'
+                  ? "Seul le compte présent dans la liste autorisée peut se connecter. Après 5 tentatives incorrectes consécutives pour le même e-mail, l'accès est temporairement bloqué pendant 1 heure."
                   : 'Ce déploiement ne contient pas les variables Supabase. La connexion est désactivée ; le menu public reste disponible.'}
               </p>
             </div>
@@ -153,7 +224,12 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
                   placeholder="vous@exemple.tn"
                   autoComplete="email"
                   required
-                  disabled={busy}
+                  disabled={busy || isBlocked}
+                  onBlur={refreshRateStatus}
+                  onChange={() => {
+                    setError(null);
+                    refreshRateStatus();
+                  }}
                 />
               </div>
             </div>
@@ -173,15 +249,28 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
                   placeholder="••••••••"
                   autoComplete="current-password"
                   required
-                  disabled={busy}
+                  disabled={busy || isBlocked}
                 />
               </div>
             </div>
 
+            {rateStatus && !isBlocked && rateStatus.attemptsUsed > 0 ? (
+              <p className="login__hint">
+                Tentatives utilisées : {rateStatus.attemptsUsed}/{rateStatus.maxAttempts} — Il vous
+                reste {rateStatus.remaining} tentative{rateStatus.remaining > 1 ? 's' : ''}.
+              </p>
+            ) : null}
+
+            {isBlocked && blockedNow ? (
+              <p className="login__hint login__hint--warn">
+                Blocage actif — Réessai possible dans {formatTimeLeft(blockedNow - now)}
+              </p>
+            ) : null}
+
             {error ? <p className="login__error">{error}</p> : null}
 
-            <button type="submit" className="button login__submit" disabled={busy}>
-              {busy ? 'Connexion…' : 'Se connecter'}
+            <button type="submit" className="button login__submit" disabled={busy || isBlocked}>
+              {isBlocked ? 'Accès temporairement bloqué' : busy ? 'Connexion…' : 'Se connecter'}
             </button>
           </form>
 
