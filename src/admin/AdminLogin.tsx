@@ -5,6 +5,9 @@ import { currentMenu } from '../data/menuStorage';
 import { Brand } from '../components/Brand';
 import { supabase, supabaseConfigured } from '../lib/supabase';
 import {
+  LOGIN_BLOCK_DURATION_MS,
+  LOGIN_MAX_ATTEMPTS,
+  formatCountdown,
   formatTimeLeft,
   getLoginRateLimitStatus,
   recordLoginFailure,
@@ -29,12 +32,26 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
   const published = categories.reduce((total, category) => total + category.items.length, 0);
   const pending = allItems(menu).filter((item) => item.status === 'pending').length;
 
+  // Tick only while a lockout is on screen, and release it by itself the
+  // moment it expires — no reload, no second visit to the page.
+  const blockActive = Boolean(rateStatus?.blocked);
+  const blockEndsAt = rateStatus?.blockedUntil ?? null;
+
   useEffect(() => {
+    if (!blockActive || !blockEndsAt) return;
+
     const timer = window.setInterval(() => {
-      setNow(Date.now());
+      const tick = Date.now();
+      setNow(tick);
+      if (blockEndsAt <= tick) {
+        const email = emailRef.current?.value.trim() ?? '';
+        setRateStatus(email ? getLoginRateLimitStatus(email) : null);
+        setError(null);
+      }
     }, 1000);
+
     return () => window.clearInterval(timer);
-  }, []);
+  }, [blockActive, blockEndsAt]);
 
   const refreshRateStatus = () => {
     const email = emailRef.current?.value.trim() ?? '';
@@ -152,6 +169,10 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
       ? rateStatus.blockedUntil
       : null;
   const isBlocked = Boolean(blockedNow);
+  const blockedMsLeft = blockedNow ? Math.max(0, blockedNow - now) : 0;
+  const blockedFraction = blockedNow
+    ? Math.min(1, Math.max(0, blockedMsLeft / LOGIN_BLOCK_DURATION_MS))
+    : 0;
 
   return (
     <div className="login">
@@ -253,7 +274,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
             </div>
 
             {rateStatus && !isBlocked && rateStatus.attemptsUsed > 0 ? (
-              <div className="login__hint">
+              <div className="login__hint" role="status">
                 <span className="login__hint-icon">
                   <TriangleAlert size={16} aria-hidden="true" />
                 </span>
@@ -262,23 +283,55 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
                     {rateStatus.remaining === 1 ? 'Dernière tentative' : 'Tentatives restantes'}
                   </span>
                   <span className="login__hint-sub">
-                    {rateStatus.attemptsUsed}/{rateStatus.maxAttempts} utilisées —{' '}
-                    {rateStatus.remaining} restante{rateStatus.remaining > 1 ? 's' : ''}
+                    {rateStatus.remaining} sur {rateStatus.maxAttempts} avant un blocage d’une heure
+                  </span>
+                  <span className="login__pips" aria-hidden="true">
+                    {Array.from({ length: LOGIN_MAX_ATTEMPTS }, (_, index) => (
+                      <span
+                        key={index}
+                        className={
+                          index < rateStatus.remaining ? 'login__pip login__pip--on' : 'login__pip'
+                        }
+                      />
+                    ))}
                   </span>
                 </div>
               </div>
             ) : null}
 
             {isBlocked && blockedNow ? (
-              <div className="login__hint login__hint--warn">
-                <span className="login__hint-icon">
-                  <Lock size={16} aria-hidden="true" />
-                </span>
-                <div className="login__hint-text">
-                  <span className="login__hint-title">Accès temporairement bloqué</span>
-                  <span className="login__hint-sub">
-                    Réessai possible dans {formatTimeLeft(blockedNow - now)}
+              <div className="login__hint login__hint--warn" role="status">
+                <div className="login__hint-head">
+                  <span className="login__hint-icon">
+                    <Lock size={16} aria-hidden="true" />
                   </span>
+                  <div className="login__hint-text">
+                    <span className="login__hint-title">Accès temporairement bloqué</span>
+                    <span className="login__hint-sub">
+                      Trop de tentatives échouées. Réessai automatique dans
+                    </span>
+                  </div>
+                </div>
+
+                <div className="login__clock">
+                  <span className="login__clock-value" role="timer" aria-live="off">
+                    {formatCountdown(blockedMsLeft)}
+                  </span>
+                  <span className="login__clock-label">avant réouverture</span>
+                </div>
+
+                <div
+                  className="login__track"
+                  role="progressbar"
+                  aria-label="Temps de blocage restant"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={Math.round(blockedFraction * 100)}
+                >
+                  <span
+                    className="login__track-fill"
+                    style={{ width: `${blockedFraction * 100}%` }}
+                  />
                 </div>
               </div>
             ) : null}

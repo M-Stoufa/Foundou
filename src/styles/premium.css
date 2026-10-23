@@ -332,7 +332,9 @@ html {
   );
   background-repeat: no-repeat;
   background-position: center bottom;
-  background-size: 100% 1px;
+  /* The strip bleeds to the screen edge; its rule stays inset to the content
+     gutter, exactly like the rule it replaces. */
+  background-size: calc(100% - 2 * var(--gutter)) 1px;
   box-shadow: 0 16px 28px -28px rgb(59 35 20 / 55%);
   backdrop-filter: blur(20px) saturate(1.18);
 }
@@ -614,7 +616,7 @@ html {
   top: 0;
   z-index: 70;
   height: 3px;
-  background: rgb(33 25 20 / 6%);
+  background: transparent;
   pointer-events: none;
 }
 
@@ -726,26 +728,22 @@ html {
     0 10px 20px -14px rgb(0 0 0 / 80%);
 }
 
-.admin__role {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
+/* The dot is a desktop flourish. On phones the role is left as plain text so
+   it can wrap and the sticky bar stays one compact row. */
+@media (min-width: 48em) {
+  .admin__role {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
 
-.admin__role::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 3px rgb(236 194 90 / 16%);
-}
-
-/* The dot is a desktop flourish: on phones the extra 11px pushes the bar
-   onto a second row, so the label keeps its compact form there. */
-@media (max-width: 47.99em) {
   .admin__role::before {
-    display: none;
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 3px rgb(236 194 90 / 16%);
   }
 }
 
@@ -965,7 +963,9 @@ html {
     transform var(--dur-3) var(--ease-out-expo),
     box-shadow var(--dur-3) var(--ease-out-expo),
     border-color var(--dur-3) var(--ease-out-expo);
-  animation: acat-in 520ms var(--ease-out-expo) both;
+  /* `backwards` (not `both`): once the entrance settles, the hover lift can
+     take over the transform again. */
+  animation: acat-in 520ms var(--ease-out-expo) backwards;
   animation-delay: calc(80ms + var(--cat-i, 0) * 42ms);
 }
 
@@ -1499,62 +1499,6 @@ html {
   animation: shake-in 320ms var(--ease-out-expo) both;
 }
 
-/* Sign-in attempt counter / lockout notice. */
-.login__hint {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid color-mix(in srgb, var(--rule) 90%, transparent);
-  border-radius: 0.85rem;
-  background: radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--paper) 92%, transparent) 0%, color-mix(in srgb, var(--surface) 90%, transparent) 100%);
-  color: var(--ink-soft);
-  font-size: var(--step--1);
-  line-height: 1.5;
-  box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--ink) 70%, transparent);
-  animation: rise-in-soft 320ms var(--ease-out-expo) both;
-}
-
-.login__hint--warn {
-  border-color: color-mix(in srgb, var(--color-amber) 55%, transparent);
-  background: radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--color-amber) 16%, transparent) 0%, color-mix(in srgb, var(--surface) 92%, transparent) 100%);
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.login__hint-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
-  color: var(--accent-deep);
-  flex: 0 0 auto;
-}
-
-.login__hint--warn .login__hint-icon {
-  background: color-mix(in srgb, var(--color-amber) 24%, transparent);
-  color: var(--color-amber);
-}
-
-.login__hint-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.login__hint-title {
-  font-size: var(--step-0);
-  font-weight: 700;
-}
-
-.login__hint-sub {
-  font-size: var(--step--1);
-  opacity: 0.9;
-}
-
 .login__demo-btn {
   display: inline-flex;
   align-items: center;
@@ -1749,6 +1693,22 @@ html {
   }
 }
 
+/* 320px: two extra glyphs of breathing room keep the bar on one row. The
+   shared --admin-pad token keeps bar, notice and content on the same edge. */
+@media (max-width: 21em) {
+  .admin {
+    --admin-pad: max(0.75rem, calc((100% - 72rem) / 2));
+  }
+
+  .admin__identity {
+    gap: 0.5rem;
+  }
+
+  .admin__logout {
+    padding-inline: 0.8rem;
+  }
+}
+
 /* --- Motion preferences ------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1762,8 +1722,7 @@ html {
   .admin-dirty::before,
   .confirm__icon::after,
   .masthead__mark::after,
-  .login__aside::after,
-  .login__hint {
+  .login__aside::after {
     animation: none;
   }
 

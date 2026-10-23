@@ -2,6 +2,11 @@ const STORAGE_KEY = 'foundou:login:ratelimit:v1';
 const MAX_ATTEMPTS = 5;
 const BLOCK_DURATION_MS = 60 * 60 * 1000;
 
+/** Number of failed attempts allowed before the lockout kicks in. */
+export const LOGIN_MAX_ATTEMPTS = MAX_ATTEMPTS;
+/** How long the owner is locked out, in milliseconds. */
+export const LOGIN_BLOCK_DURATION_MS = BLOCK_DURATION_MS;
+
 interface AttemptRecord {
   emailKey: string;
   count: number;
@@ -237,6 +242,19 @@ export function recordLoginSuccess(email: string): void {
     delete records[emailKey];
     saveRecords(records);
   }
+}
+
+/**
+ * Live countdown used by the lockout card: `MM:SS`, or `H:MM:SS` above one
+ * hour. Rounds up so the clock never shows 00:00 while the block is active.
+ */
+export function formatCountdown(ms: number): string {
+  const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const pad = (value: number) => String(value).padStart(2, '0');
+  return hours > 0 ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${pad(minutes)}:${pad(seconds)}`;
 }
 
 export function formatTimeLeft(ms: number): string {
