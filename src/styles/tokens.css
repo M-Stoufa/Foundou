@@ -98,12 +98,35 @@
   --r-sm: 7px;
   --r-md: 11px;
   --r-lg: 16px;
+  --r-xl: 22px;
+  --r-2xl: 30px;
   --r-pill: 999px;
 
   /* --- Elevation (used sparingly) ------------------------------------- */
   --shadow-sm: 0 1px 2px rgb(33 25 20 / 5%);
   --shadow-md: 0 2px 6px rgb(33 25 20 / 5%), 0 18px 40px -26px rgb(33 25 20 / 26%);
   --shadow-lg: 0 4px 12px rgb(33 25 20 / 6%), 0 40px 70px -40px rgb(33 25 20 / 34%);
+  --shadow-xl: 0 8px 20px rgb(33 25 20 / 6%), 0 48px 90px -48px rgb(33 25 20 / 42%);
+  --shadow-card: 0 1px 2px rgb(33 25 20 / 4%), 0 22px 48px -34px rgb(72 42 22 / 34%);
+  --shadow-float: 0 3px 8px rgb(33 25 20 / 6%), 0 30px 60px -30px rgb(72 42 22 / 44%);
+
+  /* --- Light effects -------------------------------------------------- */
+  --halo-gold: 0 0 0 1px rgb(236 194 90 / 20%), 0 18px 42px -22px rgb(236 194 90 / 58%);
+  --halo-accent: 0 0 0 1px rgb(179 74 44 / 12%), 0 18px 42px -22px rgb(179 74 44 / 48%);
+  --surface-glass: rgb(255 253 248 / 74%);
+  --surface-veil: rgb(255 253 248 / 48%);
+
+  /* --- Signature gradients -------------------------------------------- */
+  --grad-accent: linear-gradient(135deg, #bd5233 0%, #a13f23 52%, #7f2c17 100%);
+  --grad-gold: linear-gradient(135deg, #f0cd74 0%, #e3b34b 52%, #bd7e27 100%);
+  --grad-espresso: linear-gradient(145deg, #2b211a 0%, #1d1611 58%, #120d0a 100%);
+  --grad-sheen: linear-gradient(
+    112deg,
+    transparent 28%,
+    rgb(255 255 255 / 26%) 46%,
+    rgb(255 255 255 / 6%) 54%,
+    transparent 70%
+  );
 
   /* --- Motion --------------------------------------------------------- */
   --dur-1: 120ms;
@@ -111,12 +134,15 @@
   --dur-3: 320ms;
   --dur-4: 520ms;
   --dur-5: 760ms;
+  --dur-6: 1100ms;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   /* A restrained overshoot, reserved for the seal and press feedback. */
   --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --ease-spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* --- Layout --------------------------------------------------------- */
   --measure: 34rem;
@@ -145,4 +171,9 @@
   --accent-tint: #3a301c;
   --accent-line: #6d5a2f;
   --gold-deep: #f3d27f;
+  /* Dark-shell glass and halos, kept separate from the light paper surfaces. */
+  --surface-glass: rgb(255 255 255 / 6%);
+  --surface-veil: rgb(255 255 255 / 3%);
+  --halo-gold: 0 0 0 1px rgb(236 194 90 / 22%), 0 18px 42px -22px rgb(0 0 0 / 72%);
+  --halo-accent: 0 0 0 1px rgb(236 194 90 / 16%), 0 18px 42px -22px rgb(0 0 0 / 66%);
 }

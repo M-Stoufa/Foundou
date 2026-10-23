@@ -1,16 +1,28 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type CSSProperties } from 'react';
 import {
   ArrowDown,
   ArrowLeft,
   ArrowUp,
+  CakeSlice,
+  Citrus,
+  Coffee,
+  CupSoda,
+  Droplets,
   Eye,
   EyeOff,
+  IceCreamBowl,
+  Info,
   Layers,
+  Leaf,
   Pencil,
   Plus,
+  RotateCcw,
   ShieldCheck,
+  Sparkles,
   TriangleAlert,
   Trash,
+  UploadCloud,
+  Wine,
 } from 'lucide-react';
 import { type MenuCategory, type MenuItem } from '../data/menu';
 import { isDefaultMenu } from '../data/menuStorage';
@@ -50,6 +62,18 @@ function itemState(item: MenuItem): { key: 'live' | 'hidden' | 'pending'; label:
   if (!item.visible) return { key: 'hidden', label: 'Masqué' };
   return { key: 'live', label: 'Publié' };
 }
+
+/** A quiet pictogram per house category; owner-created categories fall back. */
+const categoryIcons: Record<string, typeof Coffee> = {
+  cafe: Coffee,
+  the: Leaf,
+  eau: Droplets,
+  jus: Citrus,
+  'milk-shake': CupSoda,
+  smoothie: IceCreamBowl,
+  mojito: Wine,
+  gateaux: CakeSlice,
+};
 
 export function AdminDashboard({
   state,
@@ -180,12 +204,11 @@ export function AdminDashboard({
       </header>
 
       <div className="admin__notice" role="note">
-        <TriangleAlert size={17} aria-hidden="true" className="admin__notice-icon" />
+        <Info size={17} aria-hidden="true" className="admin__notice-icon" />
         <p>
-          <strong>Prototype local.</strong> La connexion est vérifiée par Supabase Auth, mais cette
-          page n’écrit rien sur un serveur. Les modifications restent{' '}
-          <strong>dans ce navigateur</strong> : les visiteurs d’un autre appareil voient toujours la
-          carte d’origine.
+          <strong>Brouillon partagé.</strong> Vos modifications sont enregistrées dans Supabase et
+          reprises sur tous vos appareils. Le menu public ne change qu’après{' '}
+          <strong>Publier</strong>.
         </p>
       </div>
 
@@ -193,9 +216,9 @@ export function AdminDashboard({
         <div className="admin__storage-alert" role="alert">
           <TriangleAlert size={17} aria-hidden="true" className="admin__storage-alert-icon" />
           <p>
-            <strong>Stockage local indisponible.</strong> Les modifications restent actives dans cet
-            onglet, mais elles seront perdues au rechargement. Autorisez le stockage du site ou
-            libérez de l’espace, puis recommencez.
+            <strong>Stockage local indisponible.</strong> Vos modifications sont tout de même
+            envoyées à Supabase. Ce navigateur ne conserve simplement pas de copie locale :
+            autorisez le stockage du site si vous voulez un brouillon hors ligne.
           </p>
         </div>
       ) : null}
@@ -207,7 +230,7 @@ export function AdminDashboard({
             <h1 className="admin-title">Le menu</h1>
             <p className="admin-sub">
               {live} article{live > 1 ? 's' : ''} publié{live > 1 ? 's' : ''} sur {items.length}
-              {dirty ? <span className="admin-dirty">Brouillon local</span> : null}
+              {dirty ? <span className="admin-dirty">Brouillon</span> : null}
             </p>
           </div>
           <div className="admin-head__actions">
@@ -225,6 +248,7 @@ export function AdminDashboard({
               onClick={askReset}
               disabled={!dirty}
             >
+              <RotateCcw size={14} aria-hidden="true" />
               Réinitialiser
             </button>
             <button
@@ -233,23 +257,57 @@ export function AdminDashboard({
               onClick={() => setPublishOpen(true)}
               disabled={publishing}
             >
+              <UploadCloud size={14} aria-hidden="true" />
               Publier
             </button>
           </div>
         </header>
 
         <ul className="astats">
-          <li className="astat">
-            <p className="astat__value">{live}</p>
+          <li
+            className="astat"
+            style={{ '--meter': items.length ? live / items.length : 0 } as CSSProperties}
+          >
+            <p className="astat__head">
+              <span className="astat__value">{live}</span>
+              <span className="astat__icon" aria-hidden="true">
+                <Eye size={14} />
+              </span>
+            </p>
             <p className="astat__label">Publiés</p>
+            <span className="astat__meter" aria-hidden="true">
+              <span />
+            </span>
           </li>
-          <li className="astat">
-            <p className="astat__value">{hidden}</p>
+          <li
+            className="astat"
+            style={{ '--meter': items.length ? hidden / items.length : 0 } as CSSProperties}
+          >
+            <p className="astat__head">
+              <span className="astat__value">{hidden}</span>
+              <span className="astat__icon" aria-hidden="true">
+                <EyeOff size={14} />
+              </span>
+            </p>
             <p className="astat__label">Masqués</p>
+            <span className="astat__meter" aria-hidden="true">
+              <span />
+            </span>
           </li>
-          <li className="astat astat--warn">
-            <p className="astat__value">{pending}</p>
+          <li
+            className="astat astat--warn"
+            style={{ '--meter': items.length ? pending / items.length : 0 } as CSSProperties}
+          >
+            <p className="astat__head">
+              <span className="astat__value">{pending}</span>
+              <span className="astat__icon" aria-hidden="true">
+                <TriangleAlert size={14} />
+              </span>
+            </p>
             <p className="astat__label">À confirmer</p>
+            <span className="astat__meter" aria-hidden="true">
+              <span />
+            </span>
           </li>
         </ul>
 
@@ -257,10 +315,19 @@ export function AdminDashboard({
           {state.categories.map((category, index) => {
             const canUp = index > 0;
             const canDown = index < state.categories.length - 1;
+            const CategoryIcon = categoryIcons[category.id] ?? Sparkles;
             return (
-              <section className="acat" key={category.id} aria-labelledby={`acat-${category.id}`}>
+              <section
+                className="acat"
+                key={category.id}
+                aria-labelledby={`acat-${category.id}`}
+                style={{ '--cat-i': index } as CSSProperties}
+              >
                 <header className="acat__head">
                   <div className="acat__id">
+                    <span className="acat__icon" aria-hidden="true">
+                      <CategoryIcon size={14} />
+                    </span>
                     <span className="acat__num" aria-hidden="true">
                       {String(index + 1).padStart(2, '0')}
                     </span>
@@ -341,6 +408,7 @@ export function AdminDashboard({
                             status.key === 'pending' ? ' is-pending' : ''
                           }`}
                           key={item.id}
+                          style={{ '--item-i': itemIndex } as CSSProperties}
                         >
                           <div className="aitem__main">
                             <p className="aitem__name">

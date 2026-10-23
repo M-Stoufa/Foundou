@@ -10,6 +10,7 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/menu.css';
 import './styles/admin.css';
+import './styles/premium.css';
 
 import { App } from './App';
 

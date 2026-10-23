@@ -966,6 +966,11 @@ html {
   /* `backwards` (not `both`): once the entrance settles, the hover lift can
      take over the transform again. */
   animation: acat-in 520ms var(--ease-out-expo) backwards;
+}
+
+/* Scoped so it outranks the per-card delays in admin.css (which reset the
+   cascade after this layer) and keeps one smooth, index-based stagger. */
+.acats > .acat {
   animation-delay: calc(80ms + var(--cat-i, 0) * 42ms);
 }
 
