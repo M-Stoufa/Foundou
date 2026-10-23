@@ -1,15 +1,22 @@
 /* ==========================================================================
    Design tokens — Café Foundou
-   A warm, editorial hospitality system: ivory paper, espresso ink, one
-   restrained terracotta accent taken from the café's own logo. Every value
-   below is a decision, not a default.
+   A warm, editorial hospitality system built from the colours actually present
+   in the café's logo: near-black ink, terracotta, and a saffron gold. The gold
+   is a *decorative* accent only — it never carries text on paper, because its
+   contrast is too low. Every value below is a decision, not a default.
    ========================================================================== */
 
 :root {
+  /* --- Logo source colours -------------------------------------------- */
+  /* Sampled from src/assets/brand/foundou-logo.png. */
+  --logo-ink: #0c1014;
+  --logo-terracotta: #b34a2c;
+  --logo-saffron: #ecc25a;
+
   /* --- Surfaces ------------------------------------------------------- */
-  --paper: #faf5ec;
-  --paper-warm: #f3eadc;
-  --paper-sunk: #efe4d3;
+  --paper: #faf4e8;
+  --paper-warm: #f2e5d2;
+  --paper-sunk: #ecdfc9;
   --surface: #fffdf8;
   /* A fixed cream for the logo disc on dark admin chrome. It must not flip
      when .tone-espresso reassigns the surface tokens. */
@@ -22,17 +29,27 @@
   --ink-faint: #8a7564;
 
   /* --- Accent (terracotta from the logo) ------------------------------ */
-  --accent: #b34a2c;
-  --accent-deep: #8a341d;
-  --accent-tint: #f5e3d9;
-  --accent-line: #d9b5a1;
+  --accent: var(--logo-terracotta);
+  --accent-deep: #8c321c;
+  --accent-tint: #f6e4d7;
+  --accent-line: #d9b29c;
+
+  /* --- Saffron gold (logo highlight, decoration only) ----------------- */
+  --gold: var(--logo-saffron);
+  --gold-deep: #8a5a12;
+  --gold-tint: #fbf0cf;
+  --gold-line: #ddbd70;
+
+  /* The signature rule: terracotta into saffron. Used for hairlines and
+     indicators, never behind body copy. */
+  --grad-brand: linear-gradient(90deg, var(--accent) 0%, #c86a3a 55%, var(--gold) 100%);
 
   /* --- Lines ---------------------------------------------------------- */
   /* Rules must be *visible* on a normal monitor: a 1px hairline below ~1.3:1
      disappears completely against the paper, which killed the price leaders. */
-  --rule: #d9c8b0;
-  --rule-soft: #e4d8c4;
-  --rule-strong: #a8835e;
+  --rule: #d8c6ad;
+  --rule-soft: #e6d8c5;
+  --rule-strong: #a6805b;
 
   /* --- Feedback (admin prototype only) -------------------------------- */
   --danger: #9b2c2c;
@@ -98,6 +115,8 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  /* A restrained overshoot, reserved for the seal and press feedback. */
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 
   /* --- Layout --------------------------------------------------------- */
   --measure: 34rem;
@@ -119,8 +138,11 @@
   --paper: #201913;
   --paper-warm: #241c16;
   --paper-sunk: #2a211b;
-  --accent: #d79a5f;
-  --accent-deep: #eab684;
-  --accent-tint: #3a2c20;
-  --accent-line: #6d4c2f;
+  /* On the espresso shell the saffron from the logo becomes the accent: it
+     clears 9.3:1 against the dark paper. */
+  --accent: var(--logo-saffron);
+  --accent-deep: #f3d27f;
+  --accent-tint: #3a301c;
+  --accent-line: #6d5a2f;
+  --gold-deep: #f3d27f;
 }

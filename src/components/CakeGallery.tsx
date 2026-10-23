@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import type { MenuItem } from '../data/menu';
 import { formatPrice } from '../lib/price';
 import { PHOTOS } from './cakePhotos';
@@ -15,12 +16,16 @@ interface CakeGalleryProps {
 export function CakeGallery({ items }: CakeGalleryProps) {
   return (
     <ul className="cakes">
-      {items.map((item) => {
+      {items.map((item, index) => {
         const photo = PHOTOS[item.id];
         if (!photo) return null;
 
         return (
-          <li className={`cake${photo.wide ? ' cake--wide' : ''}`} key={item.id}>
+          <li
+            className={`cake${photo.wide ? ' cake--wide' : ''}`}
+            key={item.id}
+            style={{ '--cake-i': index } as CSSProperties}
+          >
             <figure className="cake__figure">
               <div className="cake__frame">
                 <picture>

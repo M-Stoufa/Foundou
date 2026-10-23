@@ -31,11 +31,12 @@ export function useReveal<T extends HTMLElement>(root: RefObject<T | null>): voi
     const container = root.current;
     if (!container) return;
 
-    const targets = Array.from(container.querySelectorAll<HTMLElement>('[data-reveal]'));
-    if (targets.length === 0) return;
+    const targets: HTMLElement[] = [];
 
     if (reduced || typeof IntersectionObserver === 'undefined') {
-      targets.forEach((el) => el.classList.add('is-in'));
+      container
+        .querySelectorAll<HTMLElement>('[data-reveal]')
+        .forEach((el) => el.classList.add('is-in'));
       return;
     }
 
@@ -56,7 +57,17 @@ export function useReveal<T extends HTMLElement>(root: RefObject<T | null>): voi
       { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
     );
 
-    targets.forEach((el) => observer.observe(el));
+    const register = (el: HTMLElement) => {
+      if (el.classList.contains('is-in') || targets.includes(el)) return;
+      targets.push(el);
+      observer.observe(el);
+    };
+
+    const scan = () => {
+      container.querySelectorAll<HTMLElement>('[data-reveal]').forEach(register);
+    };
+
+    scan();
 
     // A very fast flick (or the End key, or a deep link) can jump an element
     // from "below the fold" to "above the fold" between two observer samples,
@@ -68,6 +79,7 @@ export function useReveal<T extends HTMLElement>(root: RefObject<T | null>): voi
       frame = 0;
       const limit = window.innerHeight;
       for (const el of targets) {
+        if (!el.isConnected) continue;
         if (!el.classList.contains('is-in') && el.getBoundingClientRect().top < limit) {
           reveal(el);
         }
@@ -79,11 +91,21 @@ export function useReveal<T extends HTMLElement>(root: RefObject<T | null>): voi
       frame = window.requestAnimationFrame(catchUp);
     };
 
+    // Search results and any future async content mount new sections. Without
+    // this, those nodes would keep the hidden pre-reveal state forever
+    // because the initial query ran before they existed.
+    const mutations = new MutationObserver(() => {
+      scan();
+      schedule();
+    });
+    mutations.observe(container, { childList: true, subtree: true });
+
     catchUp();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
 
     return () => {
+      mutations.disconnect();
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
       if (frame) window.cancelAnimationFrame(frame);

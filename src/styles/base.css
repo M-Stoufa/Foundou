@@ -20,11 +20,13 @@ html {
 body {
   min-height: 100dvh;
   background-color: var(--paper);
-  background-image: radial-gradient(
-    90% 46% at 50% -10%,
-    rgb(255 253 248 / 96%) 0%,
-    rgb(255 253 248 / 0%) 100%
-  );
+  /* Three soft washes pulled from the logo: paper white at the top, saffron
+     warmth at the left, terracotta at the right. Kept under 10% opacity so
+     the page still reads as paper, not as a gradient. */
+  background-image:
+    radial-gradient(58% 34% at 12% -6%, rgb(236 194 90 / 11%) 0%, transparent 72%),
+    radial-gradient(52% 30% at 88% -8%, rgb(179 74 44 / 7%) 0%, transparent 72%),
+    radial-gradient(90% 46% at 50% -10%, rgb(255 253 248 / 94%) 0%, transparent 100%);
   background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font-sans);
@@ -70,10 +72,17 @@ a {
   color: inherit;
   text-decoration-color: var(--accent-line);
   text-underline-offset: 0.22em;
+  transition:
+    color var(--dur-2) var(--ease-out),
+    text-decoration-color var(--dur-2) var(--ease-out);
+}
+
+a:hover {
+  text-decoration-color: var(--gold-deep);
 }
 
 ::selection {
-  background: var(--accent-tint);
+  background: var(--gold-tint);
   color: var(--ink);
 }
 
@@ -83,6 +92,9 @@ a {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: var(--r-xs);
+  /* A faint saffron halo ties keyboard focus to the logo palette without
+     relying on colour alone: the solid ring is still the primary cue. */
+  box-shadow: 0 0 0 5px rgb(236 194 90 / 24%);
 }
 
 .skip-link {
@@ -143,7 +155,9 @@ a {
   padding: 0.22rem;
   border-radius: 50%;
   background-color: var(--brand-disc);
-  box-shadow: 0 1px 0 rgb(0 0 0 / 18%);
+  box-shadow:
+    0 0 0 1px rgb(236 194 90 / 26%),
+    0 1px 0 rgb(0 0 0 / 18%);
 }
 
 /* --- Shared primitives -------------------------------------------------- */
@@ -187,10 +201,13 @@ a {
 
 .button:hover {
   background: var(--accent-deep);
+  box-shadow: 0 8px 20px -12px rgb(33 25 20 / 55%);
+  transform: translateY(-1px);
 }
 
 .button:active {
-  transform: translateY(1px);
+  box-shadow: 0 2px 6px -4px rgb(33 25 20 / 45%);
+  transform: translateY(1px) scale(0.995);
 }
 
 .button--ghost {

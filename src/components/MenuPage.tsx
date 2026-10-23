@@ -185,7 +185,7 @@ export function MenuPage({ anchor }: MenuPageProps) {
         </main>
       </div>
 
-      <footer className="footer">
+      <footer className="footer" data-reveal>
         <div className="footer__inner">
           <Brand variant="mark" className="footer__mark" />
           <div className="footer__text">

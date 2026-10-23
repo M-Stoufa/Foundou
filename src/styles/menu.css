@@ -8,17 +8,31 @@
    ========================================================================== */
 
 .page {
+  position: relative;
   width: 100%;
   max-width: var(--page-max);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
 
+/* The logo reduced to a single rule: terracotta → saffron. It is the page's
+   signature and the only place the three brand colours meet in one line. */
+.page::before {
+  content: '';
+  position: absolute;
+  inset-inline: var(--gutter);
+  top: 0;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--grad-brand);
+  transform-origin: left center;
+  animation: rule-draw 900ms var(--ease-out) 80ms both;
+}
+
 /* --- Masthead ----------------------------------------------------------- */
 
 .masthead {
   padding-block: clamp(1.6rem, 4.5vw, 2.75rem) 0;
-  animation: masthead-in var(--dur-5) var(--ease-out) both;
 }
 
 .masthead__inner {
@@ -32,6 +46,7 @@
 .masthead__mark {
   width: clamp(3.15rem, 9vw, 3.9rem);
   flex: none;
+  animation: seal-in 900ms var(--ease-spring) 60ms both;
 }
 
 .masthead__content {
@@ -44,10 +59,12 @@
   color: var(--accent-deep);
   font-size: 0.625rem;
   letter-spacing: 0.22em;
+  animation: rise-in 720ms var(--ease-out) 160ms both;
 }
 
 .masthead__name {
   margin-top: 0.15rem;
+  animation: rise-in 820ms var(--ease-out) 220ms both;
   font-family: var(--font-display);
   font-size: clamp(2.1rem, 8.8vw, 3.95rem);
   font-weight: 600;
@@ -64,12 +81,35 @@
   font-size: var(--step--1);
   letter-spacing: 0.005em;
   line-height: 1.4;
+  animation: rise-in 760ms var(--ease-out) 300ms both;
 }
 
-@keyframes masthead-in {
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes seal-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(6px) scale(0.9) rotate(-3deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
 
   to {
@@ -87,6 +127,7 @@
   justify-content: space-between;
   gap: var(--sp-3) var(--sp-6);
   padding-block: var(--sp-4) var(--sp-2);
+  animation: rise-in 760ms var(--ease-out) 360ms both;
 }
 
 .menu-search {
@@ -102,13 +143,18 @@
   padding-inline: 0.1rem 0.2rem;
   border-bottom: 1px solid var(--rule-strong);
   background-color: transparent;
-  transition: border-color var(--dur-2) var(--ease-out);
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-3) var(--ease-out);
 }
 
 .menu-search__label {
   display: inline-flex;
   flex: none;
   color: var(--accent-deep);
+  transition:
+    color var(--dur-2) var(--ease-out),
+    transform var(--dur-3) var(--ease-spring);
 }
 
 .menu-search__input {
@@ -133,7 +179,15 @@
 
 .menu-search__inner:focus-within {
   border-bottom-color: var(--accent);
-  box-shadow: 0 1px 0 var(--accent);
+  /* Terracotta rule with a saffron echo underneath it; no layout shift. */
+  box-shadow:
+    0 1px 0 var(--accent),
+    0 3px 0 -1px rgb(236 194 90 / 60%);
+}
+
+.menu-search__inner:focus-within .menu-search__label {
+  color: var(--accent);
+  transform: scale(1.08);
 }
 
 .menu-search__clear {
@@ -157,6 +211,14 @@
 .menu-search__clear:hover {
   background-color: var(--accent-tint);
   color: var(--accent-deep);
+}
+
+.menu-search__clear svg {
+  transition: transform var(--dur-3) var(--ease-spring);
+}
+
+.menu-search__clear:hover svg {
+  transform: rotate(90deg);
 }
 
 .menu-search__count {
@@ -197,7 +259,7 @@
   top: 0;
   z-index: 20;
   margin-inline: calc(var(--gutter) * -1);
-  background-color: rgb(250 245 236 / 92%);
+  background-color: rgb(250 244 232 / 92%);
   /* The strip bleeds to the screen edge, but its rule must not: it is inset
      to the content gutter so it lines up with the menu column underneath. */
   background-image: linear-gradient(var(--rule), var(--rule));
@@ -304,7 +366,8 @@
   z-index: 1;
   height: 2px;
   border-radius: 2px;
-  background: var(--accent);
+  background: var(--grad-brand);
+  box-shadow: 0 1px 8px rgb(236 194 90 / 40%);
   pointer-events: none;
   transition:
     transform var(--dur-3) var(--ease-out),
@@ -325,21 +388,63 @@
 }
 
 .section__head {
+  position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: baseline;
   gap: 0.75rem;
   margin-bottom: var(--sp-4);
   padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--rule-strong);
+}
+
+/* The chapter rule draws itself as the section settles, terracotta into gold,
+   then resolves into the paper rule. */
+.section__head::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--gold) 22%,
+    var(--rule-strong) 55%,
+    var(--rule) 100%
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 760ms var(--ease-out) 120ms;
+}
+
+.section.is-in .section__head::after {
+  transform: scaleX(1);
 }
 
 .section__num {
+  position: relative;
   color: var(--accent);
   font-size: 0.625rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   font-variant-numeric: tabular-nums;
+}
+
+.section__num::after {
+  content: '';
+  display: block;
+  width: 1.35rem;
+  height: 2px;
+  margin-top: 0.34rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 620ms var(--ease-out) 180ms;
+}
+
+.section.is-in .section__num::after {
+  transform: scaleX(1);
 }
 
 .section__title {
@@ -391,12 +496,14 @@
   letter-spacing: -0.006em;
   overflow-wrap: break-word;
   hyphens: auto;
+  transition: color var(--dur-2) var(--ease-out);
 }
 
 .row__note {
   color: var(--ink-muted);
   font-size: var(--step--1);
   font-weight: 400;
+  transition: color var(--dur-2) var(--ease-out);
 }
 
 .row__leader {
@@ -412,6 +519,9 @@
   background-position: 0 100%;
   background-repeat: repeat-x;
   transform: translateY(-0.26em);
+  transition:
+    opacity var(--dur-3) var(--ease-out),
+    background-image var(--dur-3) var(--ease-out);
 }
 
 .row__price {
@@ -422,6 +532,27 @@
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.005em;
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+/* Hover is a reading aid, not an affordance: the row is static content, so
+   the cursor stays default and nothing moves. */
+@media (hover: hover) {
+  .row:hover .row__name {
+    color: var(--accent-deep);
+  }
+
+  .row:hover .row__note {
+    color: var(--ink-soft);
+  }
+
+  .row:hover .row__leader {
+    opacity: 0.55;
+  }
+
+  .row:hover .row__price {
+    color: var(--accent-deep);
+  }
 }
 
 .row__unit {
@@ -470,6 +601,10 @@
   background-color: var(--surface);
   overflow: clip;
   aspect-ratio: 3 / 4;
+  transition:
+    border-color var(--dur-3) var(--ease-out),
+    box-shadow var(--dur-4) var(--ease-out),
+    transform var(--dur-4) var(--ease-out);
 }
 
 .cake--wide .cake__frame {
@@ -480,6 +615,7 @@
   display: block;
   width: 100%;
   height: 100%;
+  overflow: clip;
 }
 
 .cake__frame img {
@@ -487,6 +623,22 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  transition: transform 900ms var(--ease-out);
+}
+
+/* A thin brand rule rises along the bottom edge on hover. It lives inside the
+   clipped frame, so it never changes the card's size. */
+.cake__frame::after {
+  content: '';
+  position: absolute;
+  inset-inline: 5px;
+  bottom: 5px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--grad-brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 520ms var(--ease-out);
 }
 
 .cake__caption {
@@ -507,6 +659,27 @@
   line-height: 1.2;
   color: var(--ink);
   overflow-wrap: break-word;
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .cake:hover .cake__frame {
+    border-color: var(--accent-line);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .cake:hover .cake__frame img {
+    transform: scale(1.045);
+  }
+
+  .cake:hover .cake__frame::after {
+    transform: scaleX(1);
+  }
+
+  .cake:hover .cake__name {
+    color: var(--accent-deep);
+  }
 }
 
 .cake__price {
@@ -540,6 +713,7 @@
   padding: var(--sp-9) var(--sp-4);
   color: var(--ink-muted);
   text-align: center;
+  animation: rise-in 420ms var(--ease-out) both;
 }
 
 .menu__empty-reset {
@@ -555,9 +729,34 @@
 /* --- Footer -------------------------------------------------------------- */
 
 .footer {
+  position: relative;
   margin-top: var(--sp-4);
   padding-block: var(--sp-6) var(--sp-9);
-  border-top: 1px solid var(--rule);
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--rule) 0%,
+    var(--rule-strong) 55%,
+    var(--accent-line) 82%,
+    var(--gold-line) 100%
+  );
+}
+
+.footer__brand::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 3px rgb(236 194 90 / 18%);
 }
 
 .footer__inner {
@@ -572,6 +771,10 @@
 }
 
 .footer__brand {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 600;
@@ -600,8 +803,35 @@
   transform: none;
 }
 
+/* Rows and photographs cascade in *after* their chapter, so the eye reads the
+   section title first and the prices second. Only transform and opacity are
+   animated; the page never reflows. */
+.js .section .row,
+.js .section .cake {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.js .section.is-in .row {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 460ms var(--ease-out) calc(140ms + var(--row-i, 0) * 26ms),
+    transform 460ms var(--ease-out) calc(140ms + var(--row-i, 0) * 26ms);
+}
+
+.js .section.is-in .cake {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 560ms var(--ease-out) calc(120ms + var(--cake-i, 0) * 70ms),
+    transform 560ms var(--ease-out) calc(120ms + var(--cake-i, 0) * 70ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .js [data-reveal] {
+  .js [data-reveal],
+  .js .section .row,
+  .js .section .cake {
     opacity: 1;
     transform: none;
   }
@@ -744,6 +974,10 @@
     border-radius: var(--r-sm);
     font-size: var(--step--1);
     font-weight: 500;
+    transition:
+      color var(--dur-2) var(--ease-out),
+      background-color var(--dur-2) var(--ease-out),
+      transform var(--dur-3) var(--ease-out);
   }
 
   /* The rail keeps its own indent; only the scrolling strip is flush. */
@@ -753,6 +987,7 @@
 
   .catnav__link:hover {
     background: color-mix(in srgb, var(--accent-tint) 45%, transparent);
+    transform: translateX(2px);
   }
 
   .catnav__num {
@@ -770,15 +1005,16 @@
     position: absolute;
     left: 0.1rem;
     top: 50%;
-    width: 2px;
+    width: 3px;
     height: 1.1em;
     border-radius: 2px;
-    background: var(--accent);
+    background: var(--grad-brand);
     transform: translateY(-50%);
+    box-shadow: 0 0 8px rgb(236 194 90 / 38%);
   }
 
   .catnav__link.is-active .catnav__num {
-    color: var(--accent);
+    color: var(--gold-deep);
   }
 
   .menu {

@@ -38,8 +38,8 @@ export function MenuSection({ category, index }: MenuSectionProps) {
 
       {lineItems.length > 0 ? (
         <ul className={`items${photoItems.length > 0 ? ' items--after-gallery' : ''}`}>
-          {lineItems.map((item) => (
-            <MenuRow key={item.id} item={item} />
+          {lineItems.map((item, itemIndex) => (
+            <MenuRow key={item.id} item={item} index={itemIndex} />
           ))}
         </ul>
       ) : null}

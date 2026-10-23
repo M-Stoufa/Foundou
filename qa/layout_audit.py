@@ -90,13 +90,13 @@ MEASURE_JS = """
     const title = section.querySelector('.section__title');
     const headRect = head ? head.getBoundingClientRect() : null;
     const titleRect = title ? title.getBoundingClientRect() : null;
-    const headStyle = head ? getComputedStyle(head) : null;
+    const ruleStyle = head ? getComputedStyle(head, '::after') : null;
     return {
       id: section.id,
       ruleRight: headRect ? headRect.right : null,
       ruleBottom: headRect ? headRect.bottom : null,
-      ruleWidth: headStyle ? headStyle.borderBottomWidth : null,
-      ruleColor: headStyle ? headStyle.borderBottomColor : null,
+      ruleWidth: ruleStyle ? ruleStyle.height : null,
+      ruleColor: ruleStyle ? ruleStyle.backgroundImage : null,
       titleTop: titleRect ? titleRect.top : null,
       titleBottom: titleRect ? titleRect.bottom : null,
     };
@@ -194,7 +194,7 @@ def audit_page(page, width: int) -> tuple[list[str], list[str], dict]:
         if "radial-gradient" not in (row["leader"]["image"] or "") and "none" != row["leader"]["image"]:
             warnings.append(f"row {index}: leader has no dot pattern")
 
-    # --- section rule really is a 1px border, not a vanished element
+    # --- section rule really is a 1px line, not a vanished element
     for section in data["sections"]:
         if section["ruleRight"] is None:
             errors.append(f"section '{section['id']}' has no head element to draw its rule")
