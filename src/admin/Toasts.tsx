@@ -22,8 +22,9 @@ interface ToastsProps {
 }
 
 /**
- * Bottom-anchored confirmation messages. Deliberately worded "… · non
- * persisté": nothing here is saved anywhere, and the UI must not imply it is.
+ * Bottom-anchored confirmation messages. Every message that changes data says
+ * "enregistré localement": the write is a browser-only snapshot, never a
+ * server save. The UI must not imply shared publication.
  */
 export function Toasts({ toasts, onDismiss }: ToastsProps) {
   return (

@@ -1,8 +1,10 @@
 /**
- * MENU DATA — single source of truth for the whole application.
+ * MENU DATA — the eight owner-approved default categories.
  *
- * The public menu, the admin prototype and the automated checks all read from
- * this file. Nothing about prices or item names is duplicated anywhere else.
+ * This is the *initial* menu. Once the owner edits it in the admin, the draft
+ * is stored in the browser (see `menuStorage.ts`); the defaults below are the
+ * fallback and the target of "Réinitialiser". They are not re-applied on every
+ * startup, so a deleted default category stays deleted until a reset.
  *
  * PRICE STORAGE
  * Prices are integers expressed in *millimes* (1 DT = 1000 millimes).
@@ -11,11 +13,13 @@
  *
  * PROVENANCE
  * Every item records where its price comes from:
- *  - 'owner-update'    price supplied directly by the owner (takes priority)
+ *  - 'owner-update'    price supplied directly by the owner
  *  - 'coffee-increase' original board price + the owner's +1.000 DT coffee rise
  *  - 'board'           original board price, unchanged
  *
- * See MENU-VERIFICATION.md for the items still awaiting owner confirmation.
+ * The 2026 owner list is final: every item below is confirmed and published.
+ * The coffee rise is already included in the stored price and must never be
+ * applied a second time.
  */
 
 export type PriceSource = 'owner-update' | 'coffee-increase' | 'board';
@@ -23,7 +27,7 @@ export type PriceSource = 'owner-update' | 'coffee-increase' | 'board';
 export type ItemStatus = 'confirmed' | 'pending';
 
 export interface MenuItem {
-  /** Stable identifier, used as a React key and as an anchor target. */
+  /** Stable identifier, used as a React key. */
   id: string;
   /** Display name, exactly as written on the board or as given by the owner. */
   name: string;
@@ -42,9 +46,16 @@ export interface MenuItem {
 }
 
 export interface MenuCategory {
+  /** Stable identifier, never derived from the display name at render time. */
   id: string;
+  /** Display name, stored exactly as the owner wants it shown. */
   name: string;
   items: MenuItem[];
+  /**
+   * True for the eight owner-approved categories. They remain fully editable
+   * and deletable, but deletion asks for an extra typed confirmation.
+   */
+  isDefault?: boolean;
 }
 
 /** The owner's coffee rise applied to the five regular coffees, once. */
@@ -52,8 +63,9 @@ export const COFFEE_INCREASE = 1000;
 
 export const MENU: MenuCategory[] = [
   {
-    id: 'cafes',
-    name: 'Cafés',
+    id: 'cafe',
+    name: 'CAFÉ',
+    isDefault: true,
     items: [
       {
         id: 'express',
@@ -100,12 +112,14 @@ export const MENU: MenuCategory[] = [
         source: 'coffee-increase',
         originalPrice: 1000,
       },
-    ],
-  },
-  {
-    id: 'chocolats',
-    name: 'Chocolats',
-    items: [
+      {
+        id: 'lait-au-chocolat',
+        name: 'Lait au chocolat',
+        price: 3000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
+      },
       {
         id: 'chocolat-chaud',
         name: 'Chocolat chaud',
@@ -114,27 +128,36 @@ export const MENU: MenuCategory[] = [
         visible: true,
         source: 'owner-update',
       },
+    ],
+  },
+  {
+    id: 'the',
+    name: 'THÉ',
+    isDefault: true,
+    items: [
       {
-        id: 'chocolat-au-lait',
-        name: 'Chocolat au lait',
+        id: 'the-simple',
+        name: 'Thé',
         price: 3000,
         status: 'confirmed',
         visible: true,
         source: 'owner-update',
       },
-    ],
-  },
-  {
-    id: 'thes',
-    name: 'Thés & Infusions',
-    items: [
       {
         id: 'the-infusion',
         name: 'Thé infusion',
         price: 2500,
         status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
+      },
+      {
+        id: 'fruit-sec',
+        name: 'Fruit sec au choix',
+        price: 2000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
       },
       {
         id: 'menthe',
@@ -142,22 +165,62 @@ export const MENU: MenuCategory[] = [
         price: 1000,
         status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
+      },
+    ],
+  },
+  {
+    id: 'eau',
+    name: 'EAU',
+    isDefault: true,
+    items: [
+      {
+        id: 'eau-1-5',
+        name: 'Eau 1,5 L',
+        price: 2000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
       },
       {
-        id: 'the-simple',
-        name: 'Thé',
-        price: null,
-        status: 'pending',
+        id: 'eau-0-5',
+        name: 'Eau 0,5 L',
+        price: 1200,
+        status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
+      },
+      {
+        id: 'bouteille-verre',
+        name: 'Bouteille en verre',
+        price: 2500,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
       },
     ],
   },
   {
     id: 'jus',
-    name: 'Jus & Sodas',
+    name: 'JUS',
+    isDefault: true,
     items: [
+      {
+        id: 'jus-banane',
+        name: 'Jus banane',
+        price: 7000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
+      },
+      {
+        id: 'jus-fraise',
+        name: 'Jus fraise',
+        price: 7000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
+      },
       {
         id: 'jus-orange',
         name: "Jus d'orange",
@@ -167,17 +230,9 @@ export const MENU: MenuCategory[] = [
         source: 'owner-update',
       },
       {
-        id: 'jus-banane',
-        name: 'Jus de banane',
-        price: 7000,
-        status: 'confirmed',
-        visible: true,
-        source: 'owner-update',
-      },
-      {
-        id: 'jus-fraise',
-        name: 'Jus de fraise',
-        price: 7000,
+        id: 'citronnade',
+        name: 'Citronnade',
+        price: 6000,
         status: 'confirmed',
         visible: true,
         source: 'owner-update',
@@ -190,49 +245,50 @@ export const MENU: MenuCategory[] = [
         visible: true,
         source: 'owner-update',
       },
-      {
-        id: 'citronnade',
-        name: 'Citronnade',
-        price: null,
-        status: 'pending',
-        visible: true,
-        source: 'board',
-      },
     ],
   },
   {
-    id: 'smoothies',
-    name: 'Smoothies & Milkshakes',
+    id: 'milk-shake',
+    name: 'MILK SHAKE',
+    isDefault: true,
     items: [
       {
         id: 'milkshake-vanille',
-        name: 'Milk-shake vanille',
+        name: 'Milk Shake Vanille',
         price: 7000,
         status: 'confirmed',
         visible: true,
-        source: 'board',
-      },
-      {
-        id: 'smoothie-vanille',
-        name: 'Smoothie vanille',
-        price: 6000,
-        status: 'confirmed',
-        visible: true,
-        source: 'board',
-      },
-      {
-        id: 'smoothie-cafe',
-        name: 'Smoothie café',
-        price: 6000,
-        status: 'confirmed',
-        visible: true,
-        source: 'board',
+        source: 'owner-update',
       },
     ],
   },
   {
-    id: 'cocktails',
-    name: 'Cocktails',
+    id: 'smoothie',
+    name: 'SMOOTHIE',
+    isDefault: true,
+    items: [
+      {
+        id: 'smoothie-vanille',
+        name: 'Smoothie Vanille',
+        price: 6000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
+      },
+      {
+        id: 'smoothie-cafe',
+        name: 'Smoothie Café',
+        price: 6000,
+        status: 'confirmed',
+        visible: true,
+        source: 'owner-update',
+      },
+    ],
+  },
+  {
+    id: 'mojito',
+    name: 'MOJITO',
+    isDefault: true,
     items: [
       {
         id: 'mojito',
@@ -240,7 +296,7 @@ export const MENU: MenuCategory[] = [
         price: 5000,
         status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
       },
       {
         id: 'mojito-blue',
@@ -248,7 +304,7 @@ export const MENU: MenuCategory[] = [
         price: 6000,
         status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
       },
       {
         id: 'mojito-red',
@@ -256,67 +312,38 @@ export const MENU: MenuCategory[] = [
         price: 6000,
         status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
       },
     ],
   },
   {
-    id: 'eaux',
-    name: 'Eaux',
+    id: 'gateaux',
+    name: 'GÂTEAUX',
+    isDefault: true,
     items: [
       {
-        id: 'eau-1-5',
-        name: 'Eau 1,5 L',
-        price: 2000,
-        status: 'confirmed',
-        visible: true,
-        source: 'board',
-      },
-      {
-        id: 'eau-0-5',
-        name: 'Eau 0,5 L',
-        price: 1200,
-        status: 'confirmed',
-        visible: true,
-        source: 'board',
-      },
-      {
-        id: 'bouteille-verre',
-        name: 'Bouteille en verre',
-        price: 2500,
-        status: 'confirmed',
-        visible: true,
-        source: 'board',
-      },
-    ],
-  },
-  {
-    id: 'douceurs',
-    name: 'Douceurs',
-    items: [
-      {
-        id: 'gateaux-noisettes',
-        name: 'Gâteaux aux noisettes',
+        id: 'gateaux-chocolat',
+        name: 'Gâteaux chocolat',
         price: 8500,
         status: 'confirmed',
         visible: true,
         source: 'owner-update',
       },
       {
-        id: 'fruit-sec',
-        name: 'Fruit sec au choix',
-        price: 2000,
+        id: 'gateaux-noisettes',
+        name: 'Gâteaux noisettes',
+        price: 8500,
         status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
       },
       {
         id: 'cheesecake',
-        name: 'Cheesecake',
-        price: null,
-        status: 'pending',
+        name: 'Cheese Cake',
+        price: 8500,
+        status: 'confirmed',
         visible: true,
-        source: 'board',
+        source: 'owner-update',
       },
     ],
   },
@@ -324,8 +351,8 @@ export const MENU: MenuCategory[] = [
 
 /**
  * The published menu: only confirmed, visible items are exposed to customers.
- * Pending prices are never rendered in the public menu — see
- * MENU-VERIFICATION.md.
+ * Pending prices are never rendered in the public menu, and a category that
+ * ends up with no publishable item is dropped from the navigation.
  */
 export function publishedCategories(categories: MenuCategory[] = MENU): MenuCategory[] {
   return categories

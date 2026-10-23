@@ -1,16 +1,19 @@
 import { useId, useState } from 'react';
 import type { MenuCategory, MenuItem } from '../data/menu';
 import { formatPrice, parsePrice } from '../lib/price';
+import { itemNameExists } from './draftStore';
 import { Modal } from './Modal';
 
 export interface ItemDraft {
   name: string;
   price: number | null;
   note?: string;
+  categoryId: string;
 }
 
 interface ItemEditorProps {
   mode: 'add' | 'edit';
+  categories: MenuCategory[];
   category: MenuCategory;
   item?: MenuItem;
   onClose: () => void;
@@ -20,11 +23,13 @@ interface ItemEditorProps {
 const MAX_PRICE = 200_000; // 200.000 DT — far above any café item, a typo guard
 
 /**
- * Add / edit form. Shows its own "saving" state because the real product will
- * post to a server; here the write only reaches the in-memory draft.
+ * Add / edit form. A product can be moved to another category here; the
+ * reducer removes it from its old category and appends it to the new one, so
+ * it is never duplicated. The write is stored in this browser only.
  */
-export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditorProps) {
+export function ItemEditor({ mode, categories, category, item, onClose, onSave }: ItemEditorProps) {
   const nameId = useId();
+  const categoryFieldId = useId();
   const priceId = useId();
   const noteId = useId();
   const nameErrorId = useId();
@@ -32,6 +37,7 @@ export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditor
   const priceHintId = useId();
 
   const [name, setName] = useState(item?.name ?? '');
+  const [categoryId, setCategoryId] = useState(category.id);
   const [price, setPrice] = useState(item?.price != null ? formatPrice(item.price) : '');
   const [note, setNote] = useState(item?.note ?? '');
   const [saving, setSaving] = useState(false);
@@ -39,8 +45,15 @@ export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditor
 
   const trimmedName = name.trim();
   const parsedPrice = price.trim() === '' ? null : parsePrice(price);
+  const categoryValid = categories.some((entry) => entry.id === categoryId);
+  const moved = item ? categoryId !== category.id : false;
 
-  const nameError = trimmedName === '' ? 'Le nom de l’article est obligatoire.' : '';
+  const nameError =
+    trimmedName === ''
+      ? 'Le nom de l’article est obligatoire.'
+      : itemNameExists(categories, trimmedName, item?.id)
+        ? 'Un article porte déjà ce nom.'
+        : '';
   const priceError =
     price.trim() === ''
       ? ''
@@ -52,7 +65,7 @@ export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditor
   const priceHint =
     parsedPrice !== null && priceError === '' ? `Aperçu : ${formatPrice(parsedPrice)} DT` : '';
 
-  const valid = nameError === '' && priceError === '';
+  const valid = nameError === '' && priceError === '' && categoryValid;
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -63,16 +76,25 @@ export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditor
     try {
       // Stand-in for the network round-trip the real version will make.
       await new Promise((resolve) => setTimeout(resolve, 420));
-      onSave({ name: trimmedName, price: parsedPrice, ...(note.trim() ? { note: note.trim() } : {}) });
+      onSave({
+        name: trimmedName,
+        price: parsedPrice,
+        categoryId,
+        ...(note.trim() ? { note: note.trim() } : {}),
+      });
     } finally {
       setSaving(false);
     }
   };
 
+  const selectedCategory = categories.find((entry) => entry.id === categoryId) ?? category;
+
   return (
     <Modal
       title={mode === 'add' ? 'Nouvel article' : 'Modifier l’article'}
-      description={`Catégorie : ${category.name}`}
+      description={
+        moved ? `Déplacé vers : ${selectedCategory.name}` : `Catégorie : ${selectedCategory.name}`
+      }
       onClose={onClose}
       dismissible={!saving}
       wide
@@ -110,6 +132,31 @@ export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditor
               {nameError}
             </p>
           ) : null}
+        </div>
+
+        <div className="field">
+          <label className="field__label" htmlFor={categoryFieldId}>
+            Catégorie
+          </label>
+          <select
+            className="field__input field__select"
+            id={categoryFieldId}
+            name="item-category"
+            value={categoryId}
+            onChange={(event) => setCategoryId(event.target.value)}
+            disabled={saving}
+          >
+            {categories.map((entry) => (
+              <option value={entry.id} key={entry.id}>
+                {entry.name}
+              </option>
+            ))}
+          </select>
+          <p className="field__hint">
+            {moved
+              ? 'L’article sera déplacé vers cette catégorie, sans être dupliqué.'
+              : 'Changer de catégorie déplace l’article, sans le dupliquer.'}
+          </p>
         </div>
 
         <div className="field">
@@ -166,7 +213,8 @@ export function ItemEditor({ mode, category, item, onClose, onSave }: ItemEditor
         </div>
 
         <p className="form__note">
-          Cet enregistrement ne quitte pas le navigateur : il modifie une copie en mémoire.
+          Enregistré dans ce navigateur uniquement. Les visiteurs ne voient pas ces
+          modifications.
         </p>
       </form>
     </Modal>

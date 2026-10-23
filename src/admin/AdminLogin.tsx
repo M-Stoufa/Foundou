@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { ArrowLeft, Lock, Mail, TriangleAlert } from 'lucide-react';
 import { publishedCategories, allItems } from '../data/menu';
+import { currentMenu } from '../data/menuStorage';
 import { Brand } from '../components/Brand';
 
 interface AdminLoginProps {
@@ -23,9 +24,10 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
   const passwordRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
 
-  const categories = publishedCategories();
+  const menu = currentMenu();
+  const categories = publishedCategories(menu);
   const published = categories.reduce((total, category) => total + category.items.length, 0);
-  const pending = allItems().filter((item) => item.status === 'pending').length;
+  const pending = allItems(menu).filter((item) => item.status === 'pending').length;
 
   const fillDemo = () => {
     if (emailRef.current) emailRef.current.value = DEMO_EMAIL;
@@ -88,7 +90,8 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
               <p className="login__notice-title">Prototype de démonstration</p>
               <p className="login__notice-text">
                 N’utilisez pas de vrais identifiants. Ce formulaire n’est relié à aucun serveur :
-                aucune vérification n’est faite et aucune donnée n’est envoyée ni conservée.
+                aucune vérification n’est faite et les identifiants ne sont ni envoyés ni
+                conservés. Les modifications de la carte restent dans ce navigateur.
               </p>
             </div>
           </div>

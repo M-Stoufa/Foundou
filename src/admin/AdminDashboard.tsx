@@ -5,15 +5,19 @@ import {
   ArrowUp,
   Eye,
   EyeOff,
+  Layers,
   Pencil,
   Plus,
+  ShieldCheck,
   TriangleAlert,
   Trash,
 } from 'lucide-react';
-import { MENU, type MenuCategory, type MenuItem } from '../data/menu';
+import { type MenuCategory, type MenuItem } from '../data/menu';
+import { isDefaultMenu } from '../data/menuStorage';
 import { formatPriceWithUnit } from '../lib/price';
 import { findItem, uniqueItemId, type DraftAction, type DraftState } from './draftStore';
 import { Brand } from '../components/Brand';
+import { CategoryManager } from './CategoryManager';
 import { ConfirmDialog } from './ConfirmDialog';
 import { ItemEditor, type ItemDraft } from './ItemEditor';
 import { Modal } from './Modal';
@@ -46,6 +50,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
   const [editor, setEditor] = useState<EditorState | null>(null);
   const [confirm, setConfirm] = useState<ConfirmState | null>(null);
   const [publishOpen, setPublishOpen] = useState(false);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   const items = useMemo(
     () => state.categories.flatMap((category) => category.items),
@@ -54,7 +59,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
   const live = items.filter((item) => itemState(item).key === 'live').length;
   const hidden = items.filter((item) => !item.visible).length;
   const pending = items.filter((item) => item.status === 'pending').length;
-  const dirty = state.categories !== MENU;
+  const dirty = !isDefaultMenu(state.categories);
 
   const categoryOf = (itemId: string): MenuCategory | null => {
     const found = findItem(state.categories, itemId);
@@ -85,8 +90,8 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
         source: 'owner-update',
         ...(values.note ? { note: values.note } : {}),
       };
-      dispatch({ type: 'add-item', categoryId: editorCategory.id, item });
-      notify(`« ${values.name} » ajouté · non persisté`);
+      dispatch({ type: 'add-item', categoryId: values.categoryId, item });
+      notify(`« ${values.name} » ajouté · enregistré localement`);
     } else {
       dispatch({
         type: 'update-item',
@@ -96,9 +101,15 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
           price: values.price,
           status: values.price === null ? 'pending' : 'confirmed',
           note: values.note,
+          categoryId: values.categoryId,
         },
       });
-      notify(`« ${values.name} » mis à jour · non persisté`);
+      const moved = values.categoryId !== editorCategory.id;
+      notify(
+        moved
+          ? `« ${values.name} » déplacé vers « ${state.categories.find((c) => c.id === values.categoryId)?.name ?? ''} » · enregistré localement`
+          : `« ${values.name} » mis à jour · enregistré localement`,
+      );
     }
     setEditor(null);
   };
@@ -106,13 +117,13 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
   const askDelete = (item: MenuItem) => {
     setConfirm({
       title: 'Supprimer cet article ?',
-      body: `« ${item.name} » sera retiré de la carte. Cette action n’est pas enregistrée : un rechargement restaure la carte d’origine.`,
+      body: `« ${item.name} » sera retiré de la carte locale de ce navigateur. Cette action est enregistrée immédiatement ; « Réinitialiser » permet de revenir à la carte d’origine.`,
       confirmLabel: 'Supprimer',
       danger: true,
       onConfirm: () => {
         dispatch({ type: 'remove-item', itemId: item.id });
         setConfirm(null);
-        notify(`« ${item.name} » supprimé · non persisté`, 'warn');
+        notify(`« ${item.name} » supprimé · enregistré localement`, 'warn');
       },
     });
   };
@@ -120,7 +131,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
   const askReset = () => {
     setConfirm({
       title: 'Réinitialiser la carte ?',
-      body: 'Toutes les modifications de cette session seront perdues et la carte d’origine sera restaurée. Aucune donnée n’est enregistrée de toute façon.',
+      body: 'Toutes les modifications enregistrées dans ce navigateur seront perdues et la carte d’origine à huit catégories sera restaurée. Les autres appareils ne sont pas concernés.',
       confirmLabel: 'Réinitialiser',
       danger: true,
       onConfirm: () => {
@@ -158,8 +169,9 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
       <div className="admin__notice" role="note">
         <TriangleAlert size={17} aria-hidden="true" className="admin__notice-icon" />
         <p>
-          <strong>Prototype non protégé.</strong> Aucune authentification réelle, aucune base de
-          données. Les modifications vivent dans cet onglet et disparaissent au rechargement.
+          <strong>Prototype non protégé.</strong> Aucune authentification réelle. Les
+          modifications sont enregistrées <strong>uniquement dans ce navigateur</strong> et ne
+          sont pas visibles par les visiteurs.
         </p>
       </div>
 
@@ -170,10 +182,18 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
             <h1 className="admin-title">Le menu</h1>
             <p className="admin-sub">
               {live} article{live > 1 ? 's' : ''} publié{live > 1 ? 's' : ''} sur {items.length}
-              {dirty ? <span className="admin-dirty">Modifications en mémoire</span> : null}
+              {dirty ? <span className="admin-dirty">Modifiée localement</span> : null}
             </p>
           </div>
           <div className="admin-head__actions">
+            <button
+              type="button"
+              className="button button--ghost button--sm"
+              onClick={() => setCategoriesOpen(true)}
+            >
+              <Layers size={15} aria-hidden="true" />
+              Catégories
+            </button>
             <button
               type="button"
               className="button button--ghost button--sm"
@@ -217,6 +237,15 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
                     <h2 className="acat__name" id={`acat-${category.id}`}>
                       {category.name}
                     </h2>
+                    {category.isDefault ? (
+                      <span
+                        className="acat__default"
+                        title="Catégorie d’origine — suppression protégée"
+                      >
+                        <ShieldCheck size={11} aria-hidden="true" />
+                        D’origine
+                      </span>
+                    ) : null}
                     <span className="acat__count">
                       {category.items.length} article{category.items.length > 1 ? 's' : ''}
                     </span>
@@ -330,7 +359,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
                               onClick={() => {
                                 dispatch({ type: 'toggle-item', itemId: item.id });
                                 notify(
-                                  `« ${item.name} » ${item.visible ? 'masqué' : 'réaffiché'} · non persisté`,
+                                  `« ${item.name} » ${item.visible ? 'masqué' : 'réaffiché'} · enregistré localement`,
                                   item.visible ? 'info' : 'success',
                                 );
                               }}
@@ -364,7 +393,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
         <footer className="admin__foot">
           <p>
             Les prix sont en dinars tunisiens. Les articles « à confirmer » n’apparaissent jamais
-            sur le menu public.
+            sur le menu public. Les modifications sont enregistrées dans ce navigateur uniquement.
           </p>
         </footer>
       </main>
@@ -372,10 +401,20 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
       {editor && editorCategory ? (
         <ItemEditor
           mode={editor.mode}
+          categories={state.categories}
           category={editorCategory}
           item={editorItem ?? undefined}
           onClose={() => setEditor(null)}
           onSave={saveItem}
+        />
+      ) : null}
+
+      {categoriesOpen ? (
+        <CategoryManager
+          categories={state.categories}
+          dispatch={dispatch}
+          notify={notify}
+          onClose={() => setCategoriesOpen(false)}
         />
       ) : null}
 
@@ -392,7 +431,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
 
       {publishOpen ? (
         <Modal
-          title="Publication indisponible"
+          title="Publication partagée indisponible"
           description="Ce prototype n’a pas de serveur."
           onClose={() => setPublishOpen(false)}
           footer={
@@ -402,13 +441,14 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
           }
         >
           <p className="modal__paragraph">
-            « Publier » enverrait la carte vers une base de données et vers le menu public. Aucun
-            serveur n’est branché ici : les modifications restent dans cet onglet et disparaissent
-            au rechargement.
+            Vos modifications sont enregistrées dans le stockage de <strong>ce navigateur</strong>.
+            Elles survivent à un rechargement, mais les visiteurs qui ouvrent le site sur un autre
+            appareil voient toujours la carte d’origine.
           </p>
           <p className="modal__paragraph">
-            La version réelle demandera une authentification côté serveur, une base de données et
-            une piste d’audit. Voir <code>ADMIN-PROTOTYPE.md</code>.
+            « Publier » demanderait un serveur et une base de données partagée. Aucun n’est branché
+            ici. La version réelle demandera aussi une authentification côté serveur et une piste
+            d’audit. Voir <code>ADMIN-PROTOTYPE.md</code>.
           </p>
         </Modal>
       ) : null}
