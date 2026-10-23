@@ -6,13 +6,16 @@ imagery, no invented details.
 
 The repository contains two things:
 
-| | What it is | Status |
-|---|---|---|
-| **Public menu** (`#/`) | The customer-facing card. 8 categories, 24 published items. | Production-ready front end |
+|                             | What it is                                                               | Status                                      |
+| --------------------------- | ------------------------------------------------------------------------ | ------------------------------------------- |
+| **Public menu** (`#/`)      | The customer-facing card. 8 categories, 24 published items.              | Production-ready front end                  |
 | **Owner space** (`#/admin`) | An **unprotected visual prototype** of the price editor. In-memory only. | Design prototype — do not use for real data |
 
 There is no backend, no database, no analytics, no third-party request and no
 credential handling anywhere in this project.
+
+**Preview:** <https://m-stoufa.github.io/Foundou/> — public menu at `/Foundou/`,
+owner prototype at `/Foundou/#/admin`.
 
 ---
 
@@ -32,12 +35,12 @@ Node 22+ is expected (built and tested on Node 24).
 
 ## Routes
 
-| URL | View |
-|---|---|
-| `#/` | Public menu |
+| URL                 | View                                            |
+| ------------------- | ----------------------------------------------- |
+| `#/`                | Public menu                                     |
 | `#/c/<category-id>` | Public menu, scrolled to a category (deep link) |
-| `#/admin` | Sign-in **design prototype** |
-| `#/admin/dashboard` | Editor **design prototype** |
+| `#/admin`           | Sign-in **design prototype**                    |
+| `#/admin/dashboard` | Editor **design prototype**                     |
 
 Hash routing is deliberate: GitHub Pages serves static files and cannot rewrite
 unknown paths, and hash URLs make the same `dist/` work at a repository root,
@@ -49,20 +52,21 @@ public menu. It is a prototype, not a hidden feature.
 
 ## Scripts
 
-| Script | What it does |
-|---|---|
-| `npm run dev` | Vite dev server on port 5502 |
-| `npm run build` | `tsc -b` + Vite production build |
-| `npm run preview` | Preview the built output on port 5503 |
-| `npm test` | Vitest + Testing Library (53 tests) |
-| `npm run typecheck` | TypeScript, no emit |
-| `npm run lint:js` | ESLint (flat config, React hooks rules) |
-| `npm run lint:css` | Stylelint |
-| `npm run qa:shots` | Playwright screenshots + console/network report for the menu |
-| `npm run qa:admin-shots` | Screenshots of the admin in its interactive states |
-| `npm run qa:a11y` | axe-core (WCAG 2.2 A/AA) on every route at 320/390/768/1440 |
-| `npm run qa:admin` | Layout, contrast, tap-target and dialog invariants at 9 widths |
-| `npm run format` | Prettier |
+| Script                   | What it does                                                                       |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| `npm run dev`            | Vite dev server on port 5502                                                       |
+| `npm run build`          | `tsc -b` + Vite production build                                                   |
+| `npm run preview`        | Preview the built output on port 5503                                              |
+| `npm test`               | Vitest + Testing Library (53 tests)                                                |
+| `npm run typecheck`      | TypeScript, no emit                                                                |
+| `npm run lint:js`        | ESLint (flat config, React hooks rules)                                            |
+| `npm run lint:css`       | Stylelint                                                                          |
+| `npm run qa:shots`       | Playwright screenshots + console/network report for the menu                       |
+| `npm run qa:admin-shots` | Screenshots of the admin in its interactive states                                 |
+| `npm run qa:a11y`        | axe-core (WCAG 2.2 A/AA) on every route at 320/390/768/1440                        |
+| `npm run qa:admin`       | Layout, contrast, tap-target and dialog invariants at 9 widths                     |
+| `npm run qa:content`     | Exact menu data, no unresolved items, admin in-memory semantics, no network writes |
+| `npm run format`         | Prettier                                                                           |
 
 QA scripts need Python 3 with `playwright` and Pillow installed
 (`python3 -m pip install playwright pillow && python3 -m playwright install chromium`),
@@ -127,9 +131,23 @@ device, in Safari or in Firefox.
 `vite.config.ts` sets `base: './'`, so the build works from a repository
 sub-path without configuration.
 
+The live site is deployed by `.github/workflows/deploy.yml`: every push to
+`main` runs `npm ci && npm run build`, uploads `dist/` as a Pages artifact and
+deploys it. Pages is configured with **Source: GitHub Actions**.
+
+- Public menu: <https://m-stoufa.github.io/Foundou/>
+- Owner prototype: <https://m-stoufa.github.io/Foundou/#/admin>
+
+The deployed build is the same bundle that passed the local audits: all 56
+production captures (11 menu widths/states + 45 admin states) are pixel-identical
+to the verified local build, and `qa/verify_content.py` passes 34/34 against the
+live URL with no console, page or network errors.
+
+To deploy manually instead:
+
 ```bash
 npm run build
-# publish dist/ to the gh-pages branch (or upload it as a Pages artifact)
+# upload dist/ as a Pages artifact, or publish it to a gh-pages branch
 ```
 
 `.nojekyll` is not required because no path starts with an underscore, but the

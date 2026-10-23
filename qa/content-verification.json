@@ -1,5 +1,5 @@
 {
-  "url": "http://127.0.0.1:5503/",
+  "url": "https://m-stoufa.github.io/Foundou/",
   "passed": 34,
   "failed": 0,
   "results": [
@@ -91,7 +91,7 @@
     {
       "check": "admin · demo sign-in reaches the dashboard",
       "ok": true,
-      "detail": "http://127.0.0.1:5503/#/admin/dashboard"
+      "detail": "https://m-stoufa.github.io/Foundou/#/admin/dashboard"
     },
     {
       "check": "admin · no network write during sign-in",
