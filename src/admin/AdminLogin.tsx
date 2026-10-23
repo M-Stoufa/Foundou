@@ -70,9 +70,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
     }
 
     if (!supabaseConfigured || !supabase) {
-      setError(
-        'Connexion indisponible : la configuration Supabase est absente de ce déploiement.',
-      );
+      setError('Connexion indisponible : la configuration Supabase est absente de ce déploiement.');
       return;
     }
 
@@ -109,7 +107,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
       if (!user) {
         const failure = recordLoginFailure(email);
         setRateStatus(failure);
-        setError("Impossible de se connecter.");
+        setError('Impossible de se connecter.');
         setBusy(false);
         return;
       }
@@ -124,7 +122,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
         await supabase.auth.signOut();
         const failure = recordLoginFailure(email);
         setRateStatus(failure);
-        setError("Vérification des droits impossible.");
+        setError('Vérification des droits impossible.');
         setBusy(false);
         return;
       }
@@ -144,7 +142,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
     } catch {
       const failure = recordLoginFailure(email);
       setRateStatus(failure);
-      setError("Une erreur est survenue lors de la connexion.");
+      setError('Une erreur est survenue lors de la connexion.');
       setBusy(false);
     }
   };
@@ -190,8 +188,8 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
           </p>
           <h2 className="login__title">Accéder à la carte</h2>
           <p className="login__lede">
-            Un seul compte propriétaire. Modifiez les prix, masquez un article et réorganisez
-            les catégories.
+            Un seul compte propriétaire. Modifiez les prix, masquez un article et réorganisez les
+            catégories.
           </p>
 
           <div className="login__notice" role="note">
@@ -202,7 +200,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
               </p>
               <p className="login__notice-text">
                 {supabaseConfigured
-                  ? "Seul le compte présent dans la liste autorisée peut se connecter. Après 5 tentatives incorrectes consécutives pour le même e-mail, l'accès est temporairement bloqué pendant 1 heure."
+                  ? "Seul le compte présent dans la liste autorisée peut se connecter. Les identifiants sont vérifiés par Supabase Auth. Après 5 tentatives incorrectes consécutives pour le même e-mail, l'accès est temporairement bloqué pendant 1 heure."
                   : 'Ce déploiement ne contient pas les variables Supabase. La connexion est désactivée ; le menu public reste disponible.'}
               </p>
             </div>
@@ -255,16 +253,34 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
             </div>
 
             {rateStatus && !isBlocked && rateStatus.attemptsUsed > 0 ? (
-              <p className="login__hint">
-                Tentatives utilisées : {rateStatus.attemptsUsed}/{rateStatus.maxAttempts} — Il vous
-                reste {rateStatus.remaining} tentative{rateStatus.remaining > 1 ? 's' : ''}.
-              </p>
+              <div className="login__hint">
+                <span className="login__hint-icon">
+                  <TriangleAlert size={16} aria-hidden="true" />
+                </span>
+                <div className="login__hint-text">
+                  <span className="login__hint-title">
+                    {rateStatus.remaining === 1 ? 'Dernière tentative' : 'Tentatives restantes'}
+                  </span>
+                  <span className="login__hint-sub">
+                    {rateStatus.attemptsUsed}/{rateStatus.maxAttempts} utilisées —{' '}
+                    {rateStatus.remaining} restante{rateStatus.remaining > 1 ? 's' : ''}
+                  </span>
+                </div>
+              </div>
             ) : null}
 
             {isBlocked && blockedNow ? (
-              <p className="login__hint login__hint--warn">
-                Blocage actif — Réessai possible dans {formatTimeLeft(blockedNow - now)}
-              </p>
+              <div className="login__hint login__hint--warn">
+                <span className="login__hint-icon">
+                  <Lock size={16} aria-hidden="true" />
+                </span>
+                <div className="login__hint-text">
+                  <span className="login__hint-title">Accès temporairement bloqué</span>
+                  <span className="login__hint-sub">
+                    Réessai possible dans {formatTimeLeft(blockedNow - now)}
+                  </span>
+                </div>
+              </div>
             ) : null}
 
             {error ? <p className="login__error">{error}</p> : null}
