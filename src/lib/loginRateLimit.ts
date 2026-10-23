@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'foundou:login:ratelimit:v1';
+const STORAGE_KEY = 'foundou:login:ratelimit:v2';
 const MAX_ATTEMPTS = 5;
 const BLOCK_DURATION_MS = 60 * 60 * 1000;
 
