@@ -1,0 +1,68 @@
+{
+  "url": "http://127.0.0.1:5503/",
+  "viewports": {
+    "320": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 300,
+      "navOverflow": 473,
+      "pageOverflow": 0
+    },
+    "360": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 340,
+      "navOverflow": 433,
+      "pageOverflow": 0
+    },
+    "375": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 355,
+      "navOverflow": 418,
+      "pageOverflow": 0
+    },
+    "390": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 370,
+      "navOverflow": 403,
+      "pageOverflow": 0
+    },
+    "430": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 408.5,
+      "navOverflow": 377,
+      "pageOverflow": 0
+    },
+    "768": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 729.6,
+      "navOverflow": 74,
+      "pageOverflow": 0
+    },
+    "1024": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 972.8,
+      "navOverflow": 0,
+      "pageOverflow": 0
+    },
+    "1280": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 1112,
+      "navOverflow": 0,
+      "pageOverflow": 0
+    },
+    "1440": {
+      "errors": [],
+      "warnings": [],
+      "priceColumnRight": 1192,
+      "navOverflow": 0,
+      "pageOverflow": 0
+    }
+  }
+}

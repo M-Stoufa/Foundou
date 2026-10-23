@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" role="img" aria-label="Café Foundou">
+  <rect width="44" height="44" rx="10" fill="#fbf7f0"/>
+  <circle cx="22" cy="22" r="17.2" fill="none" stroke="#241c17" stroke-width="1.4" opacity="0.85"/>
+  <text x="22" y="30.4" text-anchor="middle" fill="#241c17"
+        font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="600">F</text>
+</svg>

@@ -1,0 +1,117 @@
+{
+  "url": "http://127.0.0.1:5503/",
+  "routes": {
+    "login": {
+      "320": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "360": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "375": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "390": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "430": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "768": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "1024": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "1280": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      },
+      "1440": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": null
+      }
+    },
+    "dashboard": {
+      "320": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 69
+      },
+      "360": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 69
+      },
+      "375": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 69
+      },
+      "390": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 69
+      },
+      "430": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 69
+      },
+      "768": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 69
+      },
+      "1024": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 65
+      },
+      "1280": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 65
+      },
+      "1440": {
+        "errors": [],
+        "warnings": [],
+        "overflow": 0,
+        "barHeight": 65
+      }
+    }
+  }
+}

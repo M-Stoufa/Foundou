@@ -1,0 +1,499 @@
+/* ==========================================================================
+   Public menu
+   ========================================================================== */
+
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --- Masthead ----------------------------------------------------------- */
+
+.masthead {
+  padding-block: clamp(1.5rem, 5vw, 2.75rem) clamp(1rem, 2.6vw, 1.5rem);
+  animation: masthead-in var(--dur-5) var(--ease-out) both;
+}
+
+.masthead__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead__mark {
+  width: 2.6rem;
+  flex: none;
+  color: var(--accent);
+}
+
+.masthead__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.masthead__name {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  color: var(--ink);
+}
+
+.masthead__note {
+  display: none;
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+@keyframes masthead-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Layout ------------------------------------------------------------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--rail-gap);
+}
+
+/* --- Category navigation ------------------------------------------------- */
+
+.catnav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin-inline: calc(var(--gutter) * -1);
+  background-color: rgb(251 247 240 / 86%);
+  /* The strip bleeds to the screen edge, but its rule must not: it is inset
+     to the content gutter so it lines up with the menu column underneath.
+     Drawn as a background rather than a pseudo-element because the mask on
+     .catnav__scroll creates a stacking context, and an overlaying ::after
+     would repaint the lower half of the active indicator. */
+  background-image: linear-gradient(var(--rule), var(--rule));
+  background-repeat: no-repeat;
+  background-size: calc(100% - 2 * var(--gutter)) 1px;
+  background-position: center bottom;
+  backdrop-filter: blur(12px) saturate(1.15);
+  animation: nav-in var(--dur-4) var(--ease-out) 120ms both;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .catnav {
+    background-color: var(--paper);
+  }
+}
+
+@keyframes nav-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.catnav__scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  /* The strip fades out at the screen edge so a cut-off label reads as
+     "there is more", never as a typo. */
+  mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent 100%);
+}
+
+.catnav__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.catnav__inner {
+  position: relative;
+  display: flex;
+  padding-bottom: 5px;
+}
+
+.catnav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  margin: 0;
+  padding: 0 var(--gutter) 0 var(--gutter);
+  list-style: none;
+}
+
+.catnav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0 0.8rem;
+  border-radius: var(--r-pill);
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--dur-2) var(--ease-out),
+    background-color var(--dur-2) var(--ease-out);
+}
+
+.catnav__num {
+  display: none;
+  font-size: var(--step--2);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The first label sits flush with the content edge — no dead padding before
+   the first word of the strip. */
+.catnav__item:first-child .catnav__link {
+  padding-left: 0;
+}
+
+.catnav__link:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent-tint) 60%, transparent);
+}
+
+.catnav__link.is-active {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.catnav__indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  pointer-events: none;
+  transition:
+    transform var(--dur-3) var(--ease-out),
+    width var(--dur-3) var(--ease-out),
+    opacity var(--dur-2) linear;
+}
+
+/* --- Menu content -------------------------------------------------------- */
+
+.menu {
+  min-width: 0;
+  padding-block: var(--sp-5) var(--sp-6);
+}
+
+.section {
+  padding-block: var(--sp-5) var(--sp-6);
+  scroll-margin-top: calc(var(--nav-h) + 1rem);
+}
+
+/* The divider is a border on the header itself, never a separate element:
+   a flex sibling with a translate would smear across a two-line title. */
+.section__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+/* --- Menu rows ----------------------------------------------------------- */
+
+.items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.items .row:last-child {
+  border-bottom: 0;
+}
+
+.row__name {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-weight: 600;
+  color: var(--ink);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.row__note {
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.row__leader {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  height: 0.7em;
+  background-image: radial-gradient(circle at 1.3px 1.3px, var(--rule-strong) 1.3px, transparent 1.4px);
+  background-size: 5px 5px;
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+  transform: translateY(-0.26em);
+}
+
+.row__price {
+  flex: 0 0 auto;
+  text-align: right;
+  font-weight: 500;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.005em;
+}
+
+.row__unit {
+  margin-left: 0.15em;
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.row__pending {
+  font-size: 0.86em;
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* --- Footer -------------------------------------------------------------- */
+
+.footer {
+  margin-top: var(--sp-4);
+  padding-block: var(--sp-5) var(--sp-8);
+  border-top: 1px solid var(--rule);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-6);
+}
+
+.footer__brand {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.footer__note {
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+
+/* --- Reveal on scroll ---------------------------------------------------- */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-4) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--dur-4) var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Desktop: editorial rail -------------------------------------------- */
+
+@media (min-width: 60em) {
+  .page {
+    display: grid;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    column-gap: var(--rail-gap);
+  }
+
+  .masthead {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding-top: var(--sp-9);
+  }
+
+  .masthead__inner {
+    display: grid;
+    grid-template-columns: var(--rail-w) minmax(0, 1fr);
+    column-gap: var(--rail-gap);
+    align-items: end;
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .masthead__mark {
+    grid-column: 1;
+    grid-row: 1;
+    width: 3.1rem;
+    align-self: end;
+    margin-bottom: 0.45rem;
+  }
+
+  .masthead__content {
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--sp-5);
+    padding-bottom: var(--sp-5);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead__note {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: end;
+    text-align: right;
+  }
+
+  .layout {
+    display: contents;
+  }
+
+  .catnav {
+    grid-column: 1;
+    grid-row: 2;
+    position: sticky;
+    top: var(--sp-6);
+    align-self: start;
+    margin-inline: 0;
+    padding-inline: 0;
+    padding-top: var(--sp-6);
+    background: none;
+    backdrop-filter: none;
+    animation: none;
+  }
+
+  .catnav__scroll {
+    overflow: visible;
+    mask-image: none;
+  }
+
+  .catnav__inner {
+    display: block;
+    padding-bottom: 0;
+  }
+
+  .catnav__indicator {
+    display: none;
+  }
+
+  .catnav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1px;
+    padding: 0;
+  }
+
+  .catnav__link {
+    min-height: 40px;
+    padding: 0 0.75rem 0 0.9rem;
+    border-radius: var(--r-sm);
+    font-size: var(--step--1);
+    font-weight: 500;
+  }
+
+  /* The rail keeps its own indent; only the scrolling strip is flush. */
+  .catnav__item:first-child .catnav__link {
+    padding-left: 0.9rem;
+  }
+
+  .catnav__link:hover {
+    background: color-mix(in srgb, var(--accent-tint) 45%, transparent);
+  }
+
+  .catnav__num {
+    display: inline;
+  }
+
+  .catnav__link.is-active {
+    background: none;
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+
+  .catnav__link.is-active::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 50%;
+    width: 2px;
+    height: 1.1em;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: translateY(-50%);
+  }
+
+  .catnav__link.is-active .catnav__num {
+    color: var(--accent);
+  }
+
+  .menu {
+    grid-column: 2;
+    grid-row: 2;
+    padding-block: 0 var(--sp-7);
+  }
+
+  .section {
+    scroll-margin-top: var(--sp-6);
+  }
+
+  .footer {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-top: 0;
+    padding-block: var(--sp-6) var(--sp-9);
+  }
+}

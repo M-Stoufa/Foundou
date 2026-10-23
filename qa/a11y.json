@@ -1,0 +1,2575 @@
+{
+  "url": "http://127.0.0.1:5503/",
+  "axe": "node_modules/axe-core/axe.min.js",
+  "runs": [
+    {
+      "route": "#/",
+      "tag": "menu",
+      "width": 320,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Menu</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"masthead__name\">Caf\u00e9 Foundou</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".is-active > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Caf\u00e9s</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/chocolats\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Chocolats</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/thes\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Th\u00e9s &amp; Infusions</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/jus\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Jus &amp; Sodas</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/smoothies\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Smoothies &amp; Milkshakes</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/cocktails\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Cocktails</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/eaux\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Eaux</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/douceurs\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Douceurs</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"cafes-titre\">Caf\u00e9s</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Express</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Cappucin</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Direct</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Am\u00e9ricain</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Sp\u00e9cial / Ar\u00f4me</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"chocolats-titre\">Chocolats</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat chaud</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">6.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat au lait</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"thes-titre\">Th\u00e9s &amp; Infusions</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Th\u00e9 infusion</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Menthe</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">1.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"jus-titre\">Jus &amp; Sodas</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus d'orange</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de banane</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de fraise</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Soda</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__brand"
+              ],
+              "html": "<p class=\"footer__brand\">Caf\u00e9 Foundou</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__note"
+              ],
+              "html": "<p class=\"footer__note\">Les prix sont indiqu\u00e9s en DT.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin",
+      "tag": "admin-login",
+      "width": 320,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".login__kicker"
+              ],
+              "html": "<p class=\"login__kicker\">",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h2"
+              ],
+              "html": "<h2 class=\"login__title\">Acc\u00e9der \u00e0 la carte</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__lede"
+              ],
+              "html": "<p class=\"login__lede\">Un seul compte propri\u00e9taire. Modifiez les prix, masquez un article et r\u00e9organisez les cat\u00e9gories.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "label[for=\"admin-email\"]"
+              ],
+              "html": "<label class=\"field__label\" for=\"admin-email\">Adresse e-mail</label>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "label[for=\"admin-password\"]"
+              ],
+              "html": "<label class=\"field__label\" for=\"admin-password\">Mot de passe</label>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__demo > p"
+              ],
+              "html": "<p>Pas envie de taper quoi que ce soit ?</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__demo-btn"
+              ],
+              "html": "<button type=\"button\" class=\"login__demo-btn\">Remplir le compte de d\u00e9monstration</button>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a"
+              ],
+              "html": "<a class=\"login__back\" href=\"#/\">",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-dashboard",
+      "width": 320,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-editor",
+      "width": 320,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".form__note"
+              ],
+              "html": "<p class=\"form__note\">Cet enregistrement ne quitte pas le navigateur : il modifie une copie en m\u00e9moire.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/",
+      "tag": "menu",
+      "width": 390,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Menu</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"masthead__name\">Caf\u00e9 Foundou</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".is-active > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Caf\u00e9s</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/chocolats\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Chocolats</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/thes\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Th\u00e9s &amp; Infusions</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/jus\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Jus &amp; Sodas</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/smoothies\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Smoothies &amp; Milkshakes</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/cocktails\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Cocktails</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/eaux\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Eaux</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/douceurs\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Douceurs</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"cafes-titre\">Caf\u00e9s</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Express</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Cappucin</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Direct</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Am\u00e9ricain</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Sp\u00e9cial / Ar\u00f4me</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"chocolats-titre\">Chocolats</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat chaud</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">6.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat au lait</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"thes-titre\">Th\u00e9s &amp; Infusions</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Th\u00e9 infusion</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Menthe</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">1.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"jus-titre\">Jus &amp; Sodas</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus d'orange</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de banane</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de fraise</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Soda</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__brand"
+              ],
+              "html": "<p class=\"footer__brand\">Caf\u00e9 Foundou</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__note"
+              ],
+              "html": "<p class=\"footer__note\">Les prix sont indiqu\u00e9s en DT.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin",
+      "tag": "admin-login",
+      "width": 390,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".login__kicker"
+              ],
+              "html": "<p class=\"login__kicker\">",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h2"
+              ],
+              "html": "<h2 class=\"login__title\">Acc\u00e9der \u00e0 la carte</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__lede"
+              ],
+              "html": "<p class=\"login__lede\">Un seul compte propri\u00e9taire. Modifiez les prix, masquez un article et r\u00e9organisez les cat\u00e9gories.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "label[for=\"admin-email\"]"
+              ],
+              "html": "<label class=\"field__label\" for=\"admin-email\">Adresse e-mail</label>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "label[for=\"admin-password\"]"
+              ],
+              "html": "<label class=\"field__label\" for=\"admin-password\">Mot de passe</label>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__demo > p"
+              ],
+              "html": "<p>Pas envie de taper quoi que ce soit ?</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__demo-btn"
+              ],
+              "html": "<button type=\"button\" class=\"login__demo-btn\">Remplir le compte de d\u00e9monstration</button>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a"
+              ],
+              "html": "<a class=\"login__back\" href=\"#/\">",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-dashboard",
+      "width": 390,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-editor",
+      "width": 390,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".form__note"
+              ],
+              "html": "<p class=\"form__note\">Cet enregistrement ne quitte pas le navigateur : il modifie une copie en m\u00e9moire.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/",
+      "tag": "menu",
+      "width": 768,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Menu</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"masthead__name\">Caf\u00e9 Foundou</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".is-active > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Caf\u00e9s</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/chocolats\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Chocolats</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/thes\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Th\u00e9s &amp; Infusions</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/jus\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Jus &amp; Sodas</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/smoothies\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Smoothies &amp; Milkshakes</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/cocktails\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Cocktails</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/eaux\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Eaux</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/douceurs\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Douceurs</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"cafes-titre\">Caf\u00e9s</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Express</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Cappucin</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Direct</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Am\u00e9ricain</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Sp\u00e9cial / Ar\u00f4me</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"chocolats-titre\">Chocolats</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat chaud</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">6.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat au lait</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"thes-titre\">Th\u00e9s &amp; Infusions</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Th\u00e9 infusion</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Menthe</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">1.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"jus-titre\">Jus &amp; Sodas</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus d'orange</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de banane</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de fraise</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Soda</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__brand"
+              ],
+              "html": "<p class=\"footer__brand\">Caf\u00e9 Foundou</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__note"
+              ],
+              "html": "<p class=\"footer__note\">Les prix sont indiqu\u00e9s en DT.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin",
+      "tag": "admin-login",
+      "width": 768,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".login__kicker"
+              ],
+              "html": "<p class=\"login__kicker\">",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h2"
+              ],
+              "html": "<h2 class=\"login__title\">Acc\u00e9der \u00e0 la carte</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__lede"
+              ],
+              "html": "<p class=\"login__lede\">Un seul compte propri\u00e9taire. Modifiez les prix, masquez un article et r\u00e9organisez les cat\u00e9gories.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "label[for=\"admin-email\"]"
+              ],
+              "html": "<label class=\"field__label\" for=\"admin-email\">Adresse e-mail</label>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "label[for=\"admin-password\"]"
+              ],
+              "html": "<label class=\"field__label\" for=\"admin-password\">Mot de passe</label>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__demo > p"
+              ],
+              "html": "<p>Pas envie de taper quoi que ce soit ?</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".login__demo-btn"
+              ],
+              "html": "<button type=\"button\" class=\"login__demo-btn\">Remplir le compte de d\u00e9monstration</button>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a"
+              ],
+              "html": "<a class=\"login__back\" href=\"#/\">",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-dashboard",
+      "width": 768,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-editor",
+      "width": 768,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/",
+      "tag": "menu",
+      "width": 1440,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Menu</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"masthead__name\">Caf\u00e9 Foundou</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".masthead__note"
+              ],
+              "html": "<p class=\"masthead__note\">Prix indiqu\u00e9s en dinars tunisiens (DT)</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".is-active > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">01</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".is-active > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Caf\u00e9s</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/chocolats\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">02</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/chocolats\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Chocolats</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/thes\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">03</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/thes\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Th\u00e9s &amp; Infusions</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/jus\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">04</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/jus\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Jus &amp; Sodas</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/smoothies\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">05</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/smoothies\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Smoothies &amp; Milkshakes</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/cocktails\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">06</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/cocktails\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Cocktails</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/eaux\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">07</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/eaux\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Eaux</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/douceurs\"] > .catnav__num[aria-hidden=\"true\"]"
+              ],
+              "html": "<span class=\"catnav__num\" aria-hidden=\"true\">08</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "a[href$=\"#/c/douceurs\"] > .catnav__label"
+              ],
+              "html": "<span class=\"catnav__label\">Douceurs</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"cafes-titre\">Caf\u00e9s</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Express</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Cappucin</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Direct</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Am\u00e9ricain</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#cafes > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Sp\u00e9cial / Ar\u00f4me</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".row:nth-child(5) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"chocolats-titre\">Chocolats</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat chaud</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">6.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Chocolat au lait</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#chocolats > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"thes-titre\">Th\u00e9s &amp; Infusions</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Th\u00e9 infusion</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">2.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Menthe</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">1.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#thes > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus-titre"
+              ],
+              "html": "<h2 class=\"section__title\" id=\"jus-titre\">Jus &amp; Sodas</h2>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus d'orange</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">4.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(1) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de banane</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(2) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Jus de fraise</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">7.000<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(3) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__name"
+              ],
+              "html": "<span class=\"row__name\">Soda</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum"
+              ],
+              "html": "<span class=\"row__price tnum\">3.500<span class=\"row__unit\"> DT</span></span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "#jus > .items > .row:nth-child(4) > .row__price.tnum > .row__unit"
+              ],
+              "html": "<span class=\"row__unit\"> DT</span>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__brand"
+              ],
+              "html": "<p class=\"footer__brand\">Caf\u00e9 Foundou</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".footer__note"
+              ],
+              "html": "<p class=\"footer__note\">Les prix sont indiqu\u00e9s en DT.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin",
+      "tag": "admin-login",
+      "width": 1440,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-dashboard",
+      "width": 1440,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "route": "#/admin/dashboard",
+      "tag": "admin-editor",
+      "width": 1440,
+      "lang": "fr",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "tags": [
+            "cat.color",
+            "wcag2aa",
+            "wcag143",
+            "TTv5",
+            "TT13.c",
+            "EN-301-549",
+            "EN-9.1.4.3",
+            "ACT",
+            "RGAAv4",
+            "RGAA-3.2.1"
+          ],
+          "nodes": [
+            {
+              "target": [
+                "text"
+              ],
+              "html": "<text x=\"22\" y=\"30.8\" text-anchor=\"middle\" fill=\"currentColor\" style=\"font: 600 26px &quot;Fraunces Variable&quot;, Georgia, serif;\">F</text>",
+              "summary": "Fix any of the following: |   Element content is too short to determine if it is actual text content"
+            },
+            {
+              "target": [
+                ".eyebrow"
+              ],
+              "html": "<p class=\"eyebrow\">Carte</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "h1"
+              ],
+              "html": "<h1 class=\"admin-title\">Le menu</h1>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                ".admin-sub"
+              ],
+              "html": "<p class=\"admin-sub\">24 articles publi\u00e9s sur 27</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            },
+            {
+              "target": [
+                "footer > p"
+              ],
+              "html": "<p>Les prix sont en dinars tunisiens. Les articles \u00ab \u00e0 confirmer \u00bb n\u2019apparaissent jamais sur le menu public.</p>",
+              "summary": "Fix any of the following: |   Element's background color could not be determined due to a background gradient"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

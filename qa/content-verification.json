@@ -1,0 +1,180 @@
+{
+  "url": "http://127.0.0.1:5503/",
+  "passed": 34,
+  "failed": 0,
+  "results": [
+    {
+      "check": "390px · 8 categories rendered",
+      "ok": true,
+      "detail": "got 8"
+    },
+    {
+      "check": "390px · exact published menu (24 items, order, names, prices)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "390px · unresolved items hidden",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "390px · every price matches \"N.NNN DT\"",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "390px · coffee rise applied exactly once",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "390px · no app-level horizontal overflow",
+      "ok": true,
+      "detail": "scrollWidth=390"
+    },
+    {
+      "check": "390px · category nav activates Douceurs",
+      "ok": true,
+      "detail": "active=['08Douceurs']"
+    },
+    {
+      "check": "1440px · 8 categories rendered",
+      "ok": true,
+      "detail": "got 8"
+    },
+    {
+      "check": "1440px · exact published menu (24 items, order, names, prices)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "1440px · unresolved items hidden",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "1440px · every price matches \"N.NNN DT\"",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "1440px · coffee rise applied exactly once",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "1440px · no app-level horizontal overflow",
+      "ok": true,
+      "detail": "scrollWidth=1440"
+    },
+    {
+      "check": "1440px · category nav activates Douceurs",
+      "ok": true,
+      "detail": "active=['08Douceurs']"
+    },
+    {
+      "check": "admin · sign-in renders",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · inputs are uncontrolled and autocomplete off",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · \"no verification\" notice present",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · demo sign-in reaches the dashboard",
+      "ok": true,
+      "detail": "http://127.0.0.1:5503/#/admin/dashboard"
+    },
+    {
+      "check": "admin · no network write during sign-in",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "check": "admin · stats 24 / 0 / 3",
+      "ok": true,
+      "detail": "['24', '0', '3']"
+    },
+    {
+      "check": "admin · 27 items incl. 3 pending",
+      "ok": true,
+      "detail": "27"
+    },
+    {
+      "check": "admin · prototype warning visible",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · hiding updates stats + toast",
+      "ok": true,
+      "detail": "['23', '1', '3']"
+    },
+    {
+      "check": "admin · edit persists in the draft",
+      "ok": true,
+      "detail": "Express 4.000 DT Masqué"
+    },
+    {
+      "check": "admin · ambiguous price \"1 200\" rejected",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · Escape closes the editor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · add item works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · publish dialog is honest about no database",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · publish is unavailable, menu unchanged",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · delete works",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "check": "admin · reload discards all changes",
+      "ok": true,
+      "detail": "['24', '0', '3']"
+    },
+    {
+      "check": "admin · still no network write after full session",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no console errors",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no page errors",
+      "ok": true,
+      "detail": "[]"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "network_writes": []
+}

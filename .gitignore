@@ -1,0 +1,29 @@
+node_modules/
+dist/
+coverage/
+.vite/
+*.local
+
+# QA artefacts — regenerate with `npm run qa:shots`
+.shots/
+qa/shots/
+qa/shots/pdf/
+qa/report/
+__pycache__/
+*.pyc
+
+# Editors / OS
+.vscode/*
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Never commit credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json

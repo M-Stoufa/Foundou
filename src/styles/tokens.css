@@ -1,0 +1,119 @@
+/* ==========================================================================
+   Design tokens — Café Foundou
+   A warm, editorial hospitality system: ivory paper, espresso ink, one
+   restrained caramel accent. Every value below is a decision, not a default.
+   ========================================================================== */
+
+:root {
+  /* --- Surfaces ------------------------------------------------------- */
+  --paper: #fbf7f0;
+  --paper-warm: #f5eee3;
+  --paper-sunk: #f1e8da;
+  --surface: #fffdfa;
+
+  /* --- Ink ------------------------------------------------------------ */
+  --ink: #241c17;
+  --ink-soft: #4b3d33;
+  --ink-muted: #7a6759;
+  --ink-faint: #8d7a6b;
+  /* --- Accent (caramel / bronze) -------------------------------------- */
+  --accent: #9c5f2e;
+  --accent-deep: #7a4520;
+  --accent-tint: #f1e3d3;
+  --accent-line: #c8a077;
+
+  /* --- Lines ---------------------------------------------------------- */
+  /* Rules must be *visible* on a normal monitor: a 1px hairline below ~1.3:1
+     disappears completely against the paper, which killed the price leaders. */
+  --rule: #d8c7ae;
+  --rule-soft: #ded2bc;
+  --rule-strong: #a9855c;
+
+  /* --- Feedback (admin prototype only) -------------------------------- */
+  --danger: #9b2c2c;
+  --danger-tint: #f7e6e4;
+  --danger-line: #dcaeaa;
+  --success: #3f6b4a;
+  --success-tint: #e6efe6;
+  /* Light-on-espresso pair for the dark toast surface. Both clear 8:1. */
+  --danger-light: #f0a9a1;
+  --success-light: #a9d6b4;
+
+  /* --- Typography ----------------------------------------------------- */
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  --step--2: 0.6875rem;
+  --step--1: clamp(0.75rem, 0.735rem + 0.075vw, 0.8125rem);
+  --step-0: clamp(0.9375rem, 0.915rem + 0.11vw, 1rem);
+  --step-1: clamp(1.0625rem, 1.02rem + 0.2vw, 1.1875rem);
+  --step-2: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --step-3: clamp(1.5rem, 1.32rem + 0.9vw, 2rem);
+  --step-4: clamp(1.9rem, 1.45rem + 2.1vw, 3rem);
+
+  --tracking-label: 0.18em;
+  --tracking-tight: -0.015em;
+
+  /* --- Space ---------------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-7: 2rem;
+  --sp-8: 2.5rem;
+  --sp-9: 3rem;
+  --sp-10: 4rem;
+  --sp-11: 5rem;
+  --sp-12: 6.5rem;
+
+  /* --- Radii ---------------------------------------------------------- */
+  --r-xs: 4px;
+  --r-sm: 7px;
+  --r-md: 11px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  /* --- Elevation (used sparingly) ------------------------------------- */
+  --shadow-sm: 0 1px 2px rgb(36 28 23 / 5%);
+  --shadow-md: 0 2px 6px rgb(36 28 23 / 5%), 0 18px 40px -26px rgb(36 28 23 / 26%);
+  --shadow-lg: 0 4px 12px rgb(36 28 23 / 6%), 0 40px 70px -40px rgb(36 28 23 / 34%);
+
+  /* --- Motion --------------------------------------------------------- */
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 520ms;
+  --dur-5: 760ms;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* --- Layout --------------------------------------------------------- */
+  --measure: 34rem;
+  --page-max: 66rem;
+  --rail-w: 13rem;
+  --rail-gap: var(--sp-8);
+  --nav-h: 3.5rem;
+  --gutter: clamp(1.25rem, 5vw, 3.5rem);
+}
+
+/* Dark, warm shell used by the admin prototype chrome. */
+.tone-espresso {
+  --surface: #2a211b;
+  --ink: #f6efe4;
+  --ink-soft: #e0d3c2;
+  --ink-muted: #b7a794;
+  --rule: #40342b;
+  --rule-soft: #362b24;
+  --paper: #201913;
+  --paper-warm: #241c16;
+  --paper-sunk: #2a211b;
+  --accent: #d79a5f;
+  --accent-deep: #eab684;
+  --accent-tint: #3a2c20;
+  --accent-line: #6d4c2f;
+}
