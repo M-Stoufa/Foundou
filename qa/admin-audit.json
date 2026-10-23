@@ -1,5 +1,5 @@
 {
-  "url": "https://m-stoufa.github.io/Foundou/",
+  "url": "http://127.0.0.1:5173/",
   "routes": {
     "login": {
       "320": {
@@ -98,19 +98,19 @@
         "errors": [],
         "warnings": [],
         "overflow": 0,
-        "barHeight": 65
+        "barHeight": 68.2
       },
       "1280": {
         "errors": [],
         "warnings": [],
         "overflow": 0,
-        "barHeight": 65
+        "barHeight": 68.2
       },
       "1440": {
         "errors": [],
         "warnings": [],
         "overflow": 0,
-        "barHeight": 65
+        "barHeight": 68.2
       }
     }
   }

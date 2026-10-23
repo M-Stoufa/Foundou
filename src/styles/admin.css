@@ -49,14 +49,8 @@
 
 .admin__mark {
   display: block;
-  width: 2rem;
+  width: 2.5rem;
   flex: none;
-  color: var(--accent);
-}
-
-.admin__mark svg {
-  width: 100%;
-  height: auto;
 }
 
 .admin__identity-text {
@@ -161,6 +155,36 @@
 
 .admin__notice strong {
   color: var(--accent-deep);
+  font-weight: 700;
+}
+
+/* --- Storage failure alert ----------------------------------------------- */
+
+.admin__storage-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding-block: 0.8rem;
+  padding-inline: var(--admin-pad);
+  background-color: var(--danger-tint);
+  border-bottom: 1px solid var(--danger-line);
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.admin__storage-alert-icon {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--danger);
+}
+
+.admin__storage-alert p {
+  max-width: 62rem;
+}
+
+.admin__storage-alert strong {
+  color: var(--danger);
   font-weight: 700;
 }
 
@@ -917,14 +941,8 @@
 
 .login__mark {
   display: block;
-  width: 2.1rem;
-  margin-bottom: 0.5rem;
-  color: var(--accent);
-}
-
-.login__mark svg {
-  width: 100%;
-  height: auto;
+  width: 3.1rem;
+  margin-bottom: 0.6rem;
 }
 
 .login__eyebrow {
@@ -1143,7 +1161,7 @@
   }
 
   .admin__mark {
-    width: 2.35rem;
+    width: 2.65rem;
   }
 
   /* Mouse-first widths: 32px is comfortable, and the phone keeps its 44px. */
@@ -1194,7 +1212,7 @@
   }
 
   .login__mark {
-    width: 3rem;
+    width: 4.1rem;
   }
 
   .login__wordmark {
@@ -1294,6 +1312,12 @@
    the arrow, so the bar stays one row instead of eating 110px of sticky chrome.
    Its text stays in the DOM for screen readers. */
 @media (max-width: 26em) {
+  /* 320px leaves 0.3px too little once the logo, wordmark and both actions are
+     laid out, so the bar would wrap onto a second row. Tighten the gap only. */
+  .admin__bar-inner {
+    column-gap: var(--sp-2);
+  }
+
   .admin__bar-link {
     padding-inline: 0.55rem;
     font-size: 0;
@@ -1315,95 +1339,6 @@
   .login__demo-btn {
     min-height: 2.75rem;
   }
-}
-
-/* --- Menu search --------------------------------------------------------- */
-
-.menu-search {
-  width: min(72rem, 100%);
-  margin: 0 auto var(--sp-5);
-  padding-inline: var(--gutter);
-}
-
-.menu-search__inner {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 3rem;
-  padding-inline: 0.9rem;
-  border: 1px solid var(--rule);
-  border-radius: var(--r-pill);
-  background-color: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-
-.menu-search__label {
-  display: inline-flex;
-  color: var(--ink-muted);
-}
-
-.menu-search__input {
-  flex: 1 1 auto;
-  min-width: 0;
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  font-size: var(--step-0);
-  line-height: 1.5;
-}
-
-.menu-search__input::placeholder {
-  color: var(--ink-muted);
-}
-
-.menu-search__input:focus {
-  outline: none;
-}
-
-.menu-search__inner:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent-line);
-}
-
-.menu-search__clear {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ink-muted);
-  cursor: pointer;
-}
-
-.menu-search__clear:hover {
-  background-color: var(--accent-tint);
-  color: var(--accent-deep);
-}
-
-.menu-search__count {
-  margin-top: 0.4rem;
-  padding-inline: 0.4rem;
-  color: var(--ink-muted);
-  font-size: var(--step--1);
-}
-
-.menu__empty {
-  padding: var(--sp-9) var(--gutter);
-  text-align: center;
-  color: var(--ink-muted);
-}
-
-.menu__empty-reset {
-  border: 0;
-  background: transparent;
-  color: var(--accent-deep);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  cursor: pointer;
 }
 
 /* --- Admin category manager ---------------------------------------------- */

@@ -3,46 +3,85 @@ import { ArrowLeft, Lock, Mail, TriangleAlert } from 'lucide-react';
 import { publishedCategories, allItems } from '../data/menu';
 import { currentMenu } from '../data/menuStorage';
 import { Brand } from '../components/Brand';
+import { supabase, supabaseConfigured } from '../lib/supabase';
 
 interface AdminLoginProps {
   onEnter: () => void;
 }
 
-const DEMO_EMAIL = 'demo@cafefoundou.tn';
-const DEMO_PASSWORD = 'demo-foundou';
-
-/**
- * The sign-in screen is a DESIGN PROTOTYPE.
- *
- * The two inputs are intentionally uncontrolled: their values are never read
- * into React state, never validated, never stored and never sent anywhere.
- * Submitting only moves to the dashboard. The screen says so, twice, because
- * a login form that looks secure but checks nothing must not pretend otherwise.
- */
 export function AdminLogin({ onEnter }: AdminLoginProps) {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const menu = currentMenu();
   const categories = publishedCategories(menu);
   const published = categories.reduce((total, category) => total + category.items.length, 0);
   const pending = allItems(menu).filter((item) => item.status === 'pending').length;
 
-  const fillDemo = () => {
-    if (emailRef.current) emailRef.current.value = DEMO_EMAIL;
-    if (passwordRef.current) passwordRef.current.value = DEMO_PASSWORD;
-  };
-
-  const submit = (event: React.FormEvent) => {
+  const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (busy) return;
+
     setBusy(true);
-    // No credential is inspected. This is a timed transition, not an auth call.
-    window.setTimeout(() => {
+    setError(null);
+
+    const email = emailRef.current?.value.trim() ?? '';
+    const password = passwordRef.current?.value ?? '';
+
+    if (!supabase) {
+      setError(
+        'Connexion indisponible : la configuration Supabase est absente de ce déploiement.',
+      );
       setBusy(false);
+      return;
+    }
+
+    try {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        setError("Identifiants incorrects.");
+        setBusy(false);
+        return;
+      }
+
+      const user = data.user;
+      if (!user) {
+        setError("Impossible de se connecter.");
+        setBusy(false);
+        return;
+      }
+
+      const { data: ownerRow, error: ownerError } = await supabase
+        .from('owners')
+        .select('user_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (ownerError) {
+        await supabase.auth.signOut();
+        setError("Vérification des droits impossible.");
+        setBusy(false);
+        return;
+      }
+
+      if (!ownerRow) {
+        await supabase.auth.signOut();
+        setError("Ce compte n'est pas autorisé à accéder à l'espace propriétaire.");
+        setBusy(false);
+        return;
+      }
+
       onEnter();
-    }, 650);
+    } catch {
+      setError("Une erreur est survenue lors de la connexion.");
+      setBusy(false);
+    }
   };
 
   return (
@@ -87,11 +126,13 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
           <div className="login__notice" role="note">
             <TriangleAlert size={18} aria-hidden="true" className="login__notice-icon" />
             <div>
-              <p className="login__notice-title">Prototype de démonstration</p>
+              <p className="login__notice-title">
+                {supabaseConfigured ? 'Accès restreint' : 'Configuration manquante'}
+              </p>
               <p className="login__notice-text">
-                N’utilisez pas de vrais identifiants. Ce formulaire n’est relié à aucun serveur :
-                aucune vérification n’est faite et les identifiants ne sont ni envoyés ni
-                conservés. Les modifications de la carte restent dans ce navigateur.
+                {supabaseConfigured
+                  ? 'Seul le compte présent dans la liste autorisée peut se connecter. Les identifiants sont vérifiés par Supabase Auth.'
+                  : 'Ce déploiement ne contient pas les variables Supabase. La connexion est désactivée ; le menu public reste disponible.'}
               </p>
             </div>
           </div>
@@ -110,7 +151,7 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
                   type="email"
                   ref={emailRef}
                   placeholder="vous@exemple.tn"
-                  autoComplete="off"
+                  autoComplete="email"
                   required
                   disabled={busy}
                 />
@@ -130,24 +171,19 @@ export function AdminLogin({ onEnter }: AdminLoginProps) {
                   type="password"
                   ref={passwordRef}
                   placeholder="••••••••"
-                  autoComplete="off"
+                  autoComplete="current-password"
                   required
                   disabled={busy}
                 />
               </div>
             </div>
 
+            {error ? <p className="login__error">{error}</p> : null}
+
             <button type="submit" className="button login__submit" disabled={busy}>
               {busy ? 'Connexion…' : 'Se connecter'}
             </button>
           </form>
-
-          <div className="login__demo">
-            <p>Pas envie de taper quoi que ce soit ?</p>
-            <button type="button" className="login__demo-btn" onClick={fillDemo} disabled={busy}>
-              Remplir le compte de démonstration
-            </button>
-          </div>
 
           <a className="login__back" href="#/">
             <ArrowLeft size={15} aria-hidden="true" />

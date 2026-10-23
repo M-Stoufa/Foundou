@@ -1,5 +1,10 @@
 /* ==========================================================================
-   Public menu
+   Public menu — "la carte"
+   --------------------------------------------------------------------------
+   An editorial menu, not a template: a cream paper page, an espresso
+   masthead with the café's real seal, hairline chapter rules, a ledger of
+   prices, and a photographic vitrine for the three patisserie items the owner
+   supplied photographs for.
    ========================================================================== */
 
 .page {
@@ -12,47 +17,53 @@
 /* --- Masthead ----------------------------------------------------------- */
 
 .masthead {
-  padding-block: clamp(1.5rem, 5vw, 2.75rem) clamp(1rem, 2.6vw, 1.5rem);
+  padding-block: clamp(1.6rem, 4.5vw, 2.75rem) 0;
   animation: masthead-in var(--dur-5) var(--ease-out) both;
 }
 
 .masthead__inner {
   display: flex;
   align-items: center;
-  gap: var(--sp-4);
+  gap: clamp(0.9rem, 3vw, 1.5rem);
   padding-bottom: var(--sp-5);
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule-strong);
 }
 
 .masthead__mark {
-  width: 2.6rem;
+  width: clamp(3.15rem, 9vw, 3.9rem);
   flex: none;
-  color: var(--accent);
 }
 
 .masthead__content {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  align-items: end;
-  gap: 0.1rem;
   min-width: 0;
 }
 
+.masthead .eyebrow {
+  color: var(--accent-deep);
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+}
+
 .masthead__name {
+  margin-top: 0.15rem;
   font-family: var(--font-display);
-  font-size: var(--step-4);
+  font-size: clamp(2.1rem, 8.8vw, 3.95rem);
   font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.02;
+  font-optical-sizing: auto;
+  letter-spacing: -0.038em;
+  line-height: 0.94;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .masthead__note {
-  display: none;
-  font-size: var(--step--1);
+  margin-top: 0.45rem;
   color: var(--ink-muted);
-  letter-spacing: 0.01em;
-  white-space: nowrap;
+  font-size: var(--step--1);
+  letter-spacing: 0.005em;
+  line-height: 1.4;
 }
 
 @keyframes masthead-in {
@@ -65,6 +76,110 @@
     opacity: 1;
     transform: none;
   }
+}
+
+/* --- Search and menu meta ------------------------------------------------ */
+
+.menu-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-6);
+  padding-block: var(--sp-4) var(--sp-2);
+}
+
+.menu-search {
+  width: min(100%, 22rem);
+  min-width: 0;
+}
+
+.menu-search__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.9rem;
+  padding-inline: 0.1rem 0.2rem;
+  border-bottom: 1px solid var(--rule-strong);
+  background-color: transparent;
+  transition: border-color var(--dur-2) var(--ease-out);
+}
+
+.menu-search__label {
+  display: inline-flex;
+  flex: none;
+  color: var(--accent-deep);
+}
+
+.menu-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-block: 0.55rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.menu-search__input::placeholder {
+  color: var(--ink-muted);
+  opacity: 1;
+}
+
+.menu-search__input:focus {
+  outline: none;
+}
+
+.menu-search__inner:focus-within {
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 var(--accent);
+}
+
+.menu-search__clear {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-2) var(--ease-out),
+    color var(--dur-2) var(--ease-out);
+}
+
+.menu-search__clear:hover {
+  background-color: var(--accent-tint);
+  color: var(--accent-deep);
+}
+
+.menu-search__count {
+  margin-top: 0.4rem;
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+}
+
+.menu-tools__meta {
+  display: none;
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.menu-tools__meta span {
+  padding-inline: 0.25rem;
+  color: var(--accent-line);
 }
 
 /* --- Layout ------------------------------------------------------------- */
@@ -82,17 +197,14 @@
   top: 0;
   z-index: 20;
   margin-inline: calc(var(--gutter) * -1);
-  background-color: rgb(251 247 240 / 86%);
+  background-color: rgb(250 245 236 / 92%);
   /* The strip bleeds to the screen edge, but its rule must not: it is inset
-     to the content gutter so it lines up with the menu column underneath.
-     Drawn as a background rather than a pseudo-element because the mask on
-     .catnav__scroll creates a stacking context, and an overlaying ::after
-     would repaint the lower half of the active indicator. */
+     to the content gutter so it lines up with the menu column underneath. */
   background-image: linear-gradient(var(--rule), var(--rule));
   background-repeat: no-repeat;
   background-size: calc(100% - 2 * var(--gutter)) 1px;
   background-position: center bottom;
-  backdrop-filter: blur(12px) saturate(1.15);
+  backdrop-filter: blur(14px) saturate(1.1);
   animation: nav-in var(--dur-4) var(--ease-out) 120ms both;
 }
 
@@ -137,7 +249,7 @@
   align-items: center;
   gap: var(--sp-1);
   margin: 0;
-  padding: 0 var(--gutter) 0 var(--gutter);
+  padding: 0 var(--gutter);
   list-style: none;
 }
 
@@ -146,7 +258,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  min-height: 44px;
+  min-height: 46px;
   padding: 0 0.8rem;
   border-radius: var(--r-pill);
   color: var(--ink-muted);
@@ -181,7 +293,7 @@
 }
 
 .catnav__link.is-active {
-  color: var(--ink);
+  color: var(--accent-deep);
   font-weight: 600;
 }
 
@@ -204,32 +316,50 @@
 
 .menu {
   min-width: 0;
-  padding-block: var(--sp-5) var(--sp-6);
+  padding-block: var(--sp-2) var(--sp-6);
 }
 
 .section {
-  padding-block: var(--sp-5) var(--sp-6);
+  padding-block: clamp(1.7rem, 3.5vw, 2.5rem);
   scroll-margin-top: calc(var(--nav-h) + 1rem);
 }
 
-/* The divider is a border on the header itself, never a separate element:
-   a flex sibling with a translate would smear across a two-line title. */
 .section__head {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: var(--sp-4);
+  gap: 0.75rem;
   margin-bottom: var(--sp-4);
-  padding-bottom: 0.45rem;
+  padding-bottom: 0.55rem;
   border-bottom: 1px solid var(--rule-strong);
+}
+
+.section__num {
+  color: var(--accent);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  font-variant-numeric: tabular-nums;
 }
 
 .section__title {
   font-family: var(--font-display);
-  font-size: var(--step-3);
+  font-size: clamp(1.5rem, 1.15rem + 1.15vw, 2.05rem);
   font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.1;
+  font-optical-sizing: auto;
+  letter-spacing: -0.022em;
+  line-height: 1.05;
   color: var(--ink);
+}
+
+.section__count {
+  color: var(--ink-muted);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* --- Menu rows ----------------------------------------------------------- */
@@ -243,8 +373,8 @@
 .row {
   display: flex;
   align-items: baseline;
-  gap: 0.55rem;
-  padding-block: 0.5rem;
+  gap: 0.6rem;
+  padding-block: 0.68rem;
   border-bottom: 1px solid var(--rule-soft);
 }
 
@@ -255,14 +385,17 @@
 .row__name {
   flex: 0 1 auto;
   min-width: 0;
-  font-weight: 600;
   color: var(--ink);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.006em;
   overflow-wrap: break-word;
   hyphens: auto;
 }
 
 .row__note {
   color: var(--ink-muted);
+  font-size: var(--step--1);
   font-weight: 400;
 }
 
@@ -270,8 +403,12 @@
   flex: 1 1 auto;
   min-width: 1.5rem;
   height: 0.7em;
-  background-image: radial-gradient(circle at 1.3px 1.3px, var(--rule-strong) 1.3px, transparent 1.4px);
-  background-size: 5px 5px;
+  background-image: radial-gradient(
+    circle at 1.3px 1.3px,
+    var(--rule-strong) 1.2px,
+    transparent 1.35px
+  );
+  background-size: 6px 6px;
   background-position: 0 100%;
   background-repeat: repeat-x;
   transform: translateY(-0.26em);
@@ -280,17 +417,19 @@
 .row__price {
   flex: 0 0 auto;
   text-align: right;
-  font-weight: 500;
-  color: var(--ink-soft);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.005em;
 }
 
 .row__unit {
-  margin-left: 0.15em;
-  font-size: 0.78em;
+  margin-left: 0.12em;
+  font-size: 0.74em;
   font-weight: 500;
   color: var(--ink-muted);
+  letter-spacing: 0.02em;
 }
 
 .row__pending {
@@ -299,32 +438,151 @@
   color: var(--ink-muted);
 }
 
+/* --- La vitrine (cake photographs) --------------------------------------- */
+
+.cakes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cake {
+  min-width: 0;
+}
+
+.cake--wide {
+  grid-column: 1 / -1;
+}
+
+.cake__figure {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.cake__frame {
+  position: relative;
+  padding: 5px;
+  border: 1px solid var(--rule);
+  background-color: var(--surface);
+  overflow: clip;
+  aspect-ratio: 3 / 4;
+}
+
+.cake--wide .cake__frame {
+  aspect-ratio: 3 / 2;
+}
+
+.cake__frame picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cake__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cake__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-inline: 0.1rem;
+}
+
+.cake__name {
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 0.9rem + 0.18vw, 1.12rem);
+  font-weight: 600;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+
+.cake__price {
+  flex: none;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.cake__unit {
+  margin-left: 0.1em;
+  color: var(--ink-muted);
+  font-size: 0.74em;
+  font-weight: 500;
+}
+
+.cake__pending {
+  color: var(--ink-muted);
+  font-size: 0.86em;
+  font-style: italic;
+}
+
+.items--after-gallery {
+  margin-top: var(--sp-4);
+}
+
+/* --- Empty search -------------------------------------------------------- */
+
+.menu__empty {
+  padding: var(--sp-9) var(--sp-4);
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.menu__empty-reset {
+  border: 0;
+  background: transparent;
+  color: var(--accent-deep);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
 /* --- Footer -------------------------------------------------------------- */
 
 .footer {
   margin-top: var(--sp-4);
-  padding-block: var(--sp-5) var(--sp-8);
+  padding-block: var(--sp-6) var(--sp-9);
   border-top: 1px solid var(--rule);
 }
 
 .footer__inner {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--sp-2) var(--sp-6);
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.footer__mark {
+  width: 2.4rem;
+  flex: none;
 }
 
 .footer__brand {
   font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 600;
+  font-optical-sizing: auto;
   color: var(--ink);
 }
 
 .footer__note {
-  font-size: var(--step--1);
+  margin-top: 0.1rem;
   color: var(--ink-muted);
+  font-size: var(--step--1);
 }
 
 /* --- Reveal on scroll ---------------------------------------------------- */
@@ -349,6 +607,27 @@
   }
 }
 
+/* --- Small screens ------------------------------------------------------- */
+
+@media (max-width: 29.99em) {
+  .section__count {
+    display: none;
+  }
+
+  .section__head {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .cake__caption {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .cake__price {
+    justify-self: start;
+  }
+}
+
 /* --- Desktop: editorial rail -------------------------------------------- */
 
 @media (min-width: 60em) {
@@ -361,41 +640,63 @@
   .masthead {
     grid-column: 1 / -1;
     grid-row: 1;
-    padding-top: var(--sp-9);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
   }
 
   .masthead__inner {
     display: grid;
     grid-template-columns: var(--rail-w) minmax(0, 1fr);
     column-gap: var(--rail-gap);
-    align-items: end;
-    border-bottom: 0;
+    align-items: center;
     padding-bottom: 0;
+    border-bottom: 0;
   }
 
   .masthead__mark {
     grid-column: 1;
     grid-row: 1;
-    width: 3.1rem;
-    align-self: end;
-    margin-bottom: 0.45rem;
+    width: clamp(4rem, 5.5vw, 4.75rem);
   }
 
   .masthead__content {
     grid-column: 2;
     grid-row: 1;
+    display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     column-gap: var(--sp-5);
+    align-items: end;
     padding-bottom: var(--sp-5);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .masthead .eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .masthead__name {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .masthead__note {
-    display: block;
     grid-column: 2;
-    grid-row: 1 / span 2;
+    grid-row: 2;
     align-self: end;
+    margin-top: 0;
+    padding-bottom: 0.15rem;
     text-align: right;
+    white-space: nowrap;
+  }
+
+  .menu-tools {
+    padding-left: calc(var(--rail-w) + var(--rail-gap));
+    padding-top: var(--sp-4);
+    padding-bottom: var(--sp-1);
+  }
+
+  .menu-tools__meta {
+    display: block;
   }
 
   .layout {
@@ -410,7 +711,7 @@
     align-self: start;
     margin-inline: 0;
     padding-inline: 0;
-    padding-top: var(--sp-6);
+    padding-top: 0.35rem;
     background: none;
     backdrop-filter: none;
     animation: none;
@@ -438,7 +739,7 @@
   }
 
   .catnav__link {
-    min-height: 40px;
+    min-height: 42px;
     padding: 0 0.75rem 0 0.9rem;
     border-radius: var(--r-sm);
     font-size: var(--step--1);
@@ -487,7 +788,20 @@
   }
 
   .section {
+    padding-block: 0 var(--sp-8);
     scroll-margin-top: var(--sp-6);
+  }
+
+  .section:first-child {
+    padding-top: 0;
+  }
+
+  .section__head {
+    padding-top: 0.35rem;
+  }
+
+  .cakes {
+    gap: 1.35rem 1.1rem;
   }
 
   .footer {

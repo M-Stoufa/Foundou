@@ -21,6 +21,8 @@ from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
+from supabase_qa import mock_owner_api, owner_session
+
 ROOT = Path(__file__).resolve().parent.parent
 AXE = ROOT / "node_modules" / "axe-core" / "axe.min.js"
 WIDTHS = [320, 390, 768, 1440]
@@ -85,9 +87,21 @@ def main() -> int:
                     has_touch=width <= 430,
                     locale="fr-TN",
                 )
+                needs_session = tag in ("admin-dashboard", "admin-editor")
+                if needs_session and not owner_session(context):
+                    print(f"[SKIP] {tag} {width}px: no local Supabase configuration")
+                    context.close()
+                    continue
                 page = context.new_page()
+                if needs_session:
+                    mock_owner_api(page)
                 page.goto(args.url + route, wait_until="networkidle")
                 page.wait_for_timeout(500)
+                if needs_session and page.locator(".admin__bar").count() == 0:
+                    print(f"[FAIL] {tag} {width}px: dashboard guard did not open the editor")
+                    failures += 1
+                    context.close()
+                    continue
                 if tag == "admin-editor":
                     page.get_by_role("button", name="Modifier Express").first.click()
                     page.wait_for_timeout(400)

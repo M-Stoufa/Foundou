@@ -91,7 +91,7 @@ export function CategoryManager({ categories, dispatch, notify, onClose }: Categ
     dispatch({ type: 'add-category', name });
     setNewName('');
     setCreateError('');
-    notify(`Catégorie « ${name} » créée · enregistrée localement`);
+    notify(`Catégorie « ${name} » créée · brouillon local`);
   };
 
   const startRename = (category: MenuCategory) => {
@@ -107,7 +107,7 @@ export function CategoryManager({ categories, dispatch, notify, onClose }: Categ
       return;
     }
     dispatch({ type: 'rename-category', categoryId: renaming.id, name });
-    notify(`Catégorie renommée « ${name} » · enregistrée localement`);
+    notify(`Catégorie renommée « ${name} » · brouillon local`);
     setRenaming(null);
   };
 
@@ -131,7 +131,7 @@ export function CategoryManager({ categories, dispatch, notify, onClose }: Categ
     notify(
       requiresReassignment
         ? `« ${deleting.name} » supprimée · ${deleting.items.length} article${deleting.items.length > 1 ? 's' : ''} déplacé${deleting.items.length > 1 ? 's' : ''} vers « ${target?.name ?? ''} »`
-        : `Catégorie « ${deleting.name} » supprimée · enregistrée localement`,
+        : `Catégorie « ${deleting.name} » supprimée · brouillon local`,
       'warn',
     );
     setDeletingId(null);

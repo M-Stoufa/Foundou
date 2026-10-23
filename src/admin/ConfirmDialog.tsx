@@ -6,16 +6,19 @@ interface ConfirmDialogProps {
   title: string;
   body: string;
   confirmLabel: string;
+  /** Label shown while the confirmation is in flight. */
+  busyLabel?: string;
   danger?: boolean;
   onConfirm: () => void;
   onClose: () => void;
 }
 
-/** Destructive-action confirmation with the same fake latency as the editor. */
+/** Destructive-action confirmation with the same short latency as the editor. */
 export function ConfirmDialog({
   title,
   body,
   confirmLabel,
+  busyLabel = 'Confirmation…',
   danger = true,
   onConfirm,
   onClose,
@@ -45,7 +48,7 @@ export function ConfirmDialog({
             disabled={busy}
             data-autofocus
           >
-            {busy ? 'Suppression…' : confirmLabel}
+            {busy ? busyLabel : confirmLabel}
           </button>
         </>
       }

@@ -1,46 +1,46 @@
 {
-  "url": "https://m-stoufa.github.io/Foundou/",
+  "url": "http://127.0.0.1:5173/",
   "viewports": {
     "320": {
       "errors": [],
       "warnings": [],
       "priceColumnRight": 300,
-      "navOverflow": 473,
+      "navOverflow": 290,
       "pageOverflow": 0
     },
     "360": {
       "errors": [],
       "warnings": [],
       "priceColumnRight": 340,
-      "navOverflow": 433,
+      "navOverflow": 250,
       "pageOverflow": 0
     },
     "375": {
       "errors": [],
       "warnings": [],
       "priceColumnRight": 355,
-      "navOverflow": 418,
+      "navOverflow": 235,
       "pageOverflow": 0
     },
     "390": {
       "errors": [],
       "warnings": [],
       "priceColumnRight": 370,
-      "navOverflow": 403,
+      "navOverflow": 220,
       "pageOverflow": 0
     },
     "430": {
       "errors": [],
       "warnings": [],
       "priceColumnRight": 408.5,
-      "navOverflow": 377,
+      "navOverflow": 183,
       "pageOverflow": 0
     },
     "768": {
       "errors": [],
       "warnings": [],
       "priceColumnRight": 729.6,
-      "navOverflow": 74,
+      "navOverflow": 0,
       "pageOverflow": 0
     },
     "1024": {
@@ -53,14 +53,14 @@
     "1280": {
       "errors": [],
       "warnings": [],
-      "priceColumnRight": 1112,
+      "priceColumnRight": 1124,
       "navOverflow": 0,
       "pageOverflow": 0
     },
     "1440": {
       "errors": [],
       "warnings": [],
-      "priceColumnRight": 1192,
+      "priceColumnRight": 1204,
       "navOverflow": 0,
       "pageOverflow": 0
     }

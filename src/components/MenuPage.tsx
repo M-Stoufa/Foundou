@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Search, X } from 'lucide-react';
-import { publishedCategories } from '../data/menu';
+import { publishedCategories, type MenuCategory } from '../data/menu';
 import { currentMenu } from '../data/menuStorage';
 import { useActiveSection, useNavOffset, useReveal, useScrollToSection } from '../lib/hooks';
+import { supabase } from '../lib/supabase';
 import { Brand } from './Brand';
 import { CategoryNav } from './CategoryNav';
 import { MenuSection } from './MenuSection';
@@ -13,8 +14,43 @@ interface MenuPageProps {
 }
 
 export function MenuPage({ anchor }: MenuPageProps) {
-  const categories = useMemo(() => publishedCategories(currentMenu()), []);
+  const [categories, setCategories] = useState<MenuCategory[]>(() =>
+    publishedCategories(currentMenu()),
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      if (!supabase) {
+        setCategories(publishedCategories(currentMenu()));
+        return;
+      }
+
+      const { data, error } = await supabase.rpc('get_published_menu');
+
+      if (cancelled) return;
+
+      if (error || !Array.isArray(data)) {
+        setCategories(publishedCategories(currentMenu()));
+        return;
+      }
+
+      setCategories(publishedCategories(data as MenuCategory[]));
+    };
+
+    void load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const ids = useMemo(() => categories.map((category) => category.id), [categories]);
+  const totalItems = useMemo(
+    () => categories.reduce((total, category) => total + category.items.length, 0),
+    [categories],
+  );
 
   const navOffset = useNavOffset();
   const scrollToSection = useScrollToSection();
@@ -57,6 +93,10 @@ export function MenuPage({ anchor }: MenuPageProps) {
   }, [categories, normalizedQuery]);
 
   const displayCategories = normalizedQuery ? filteredCategories : categories;
+  const resultCount = displayCategories.reduce(
+    (total, category) => total + category.items.length,
+    0,
+  );
 
   return (
     <div className="page" ref={rootRef}>
@@ -68,55 +108,57 @@ export function MenuPage({ anchor }: MenuPageProps) {
         <div className="masthead__inner">
           <Brand variant="mark" className="masthead__mark" />
           <div className="masthead__content">
-            <p className="eyebrow">Menu</p>
+            <p className="eyebrow">La carte</p>
             <h1 className="masthead__name">Café Foundou</h1>
             <p className="masthead__note">Prix indiqués en dinars tunisiens (DT)</p>
           </div>
         </div>
-      </header>
 
-      <div className="menu-search">
-        <div className="menu-search__inner">
-          <label className="menu-search__label" htmlFor="menu-search">
-            <Search size={16} aria-hidden="true" />
-            <span className="visually-hidden">Rechercher dans le menu</span>
-          </label>
-          <input
-            id="menu-search"
-            className="menu-search__input"
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Rechercher un article..."
-            autoComplete="off"
-            spellCheck={false}
-          />
-          {query ? (
-            <button
-              type="button"
-              className="menu-search__clear"
-              onClick={() => setQuery('')}
-              aria-label="Effacer la recherche"
-            >
-              <X size={16} aria-hidden="true" />
-            </button>
-          ) : null}
-        </div>
-        {normalizedQuery ? (
-          <p className="menu-search__count">
-            {displayCategories.reduce((total, category) => total + category.items.length, 0)}{' '}
-            résultat
-            {displayCategories.reduce((total, category) => total + category.items.length, 0) > 1
-              ? 's'
-              : ''}
-            {displayCategories.length !== categories.length
-              ? ` dans ${displayCategories.length} catégorie${
-                  displayCategories.length > 1 ? 's' : ''
-                }`
-              : ''}
+        <div className="menu-tools">
+          <div className="menu-search">
+            <div className="menu-search__inner">
+              <label className="menu-search__label" htmlFor="menu-search">
+                <Search size={16} aria-hidden="true" />
+                <span className="visually-hidden">Rechercher dans le menu</span>
+              </label>
+              <input
+                id="menu-search"
+                className="menu-search__input"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Rechercher un article…"
+                autoComplete="off"
+                spellCheck={false}
+              />
+              {query ? (
+                <button
+                  type="button"
+                  className="menu-search__clear"
+                  onClick={() => setQuery('')}
+                  aria-label="Effacer la recherche"
+                >
+                  <X size={16} aria-hidden="true" />
+                </button>
+              ) : null}
+            </div>
+            {normalizedQuery ? (
+              <p className="menu-search__count">
+                {resultCount} résultat{resultCount > 1 ? 's' : ''}
+                {displayCategories.length !== categories.length
+                  ? ` dans ${displayCategories.length} catégorie${
+                      displayCategories.length > 1 ? 's' : ''
+                    }`
+                  : ''}
+              </p>
+            ) : null}
+          </div>
+
+          <p className="menu-tools__meta">
+            {categories.length} catégories <span aria-hidden="true">·</span> {totalItems} articles
           </p>
-        ) : null}
-      </div>
+        </div>
+      </header>
 
       <div className="layout">
         {normalizedQuery ? null : (
@@ -133,7 +175,11 @@ export function MenuPage({ anchor }: MenuPageProps) {
             </p>
           ) : (
             displayCategories.map((category, index) => (
-              <MenuSection key={`${category.id}-${normalizedQuery}`} category={category} index={index} />
+              <MenuSection
+                key={`${category.id}-${normalizedQuery}`}
+                category={category}
+                index={index}
+              />
             ))
           )}
         </main>
@@ -141,8 +187,11 @@ export function MenuPage({ anchor }: MenuPageProps) {
 
       <footer className="footer">
         <div className="footer__inner">
-          <p className="footer__brand">Café Foundou</p>
-          <p className="footer__note">Les prix sont indiqués en DT.</p>
+          <Brand variant="mark" className="footer__mark" />
+          <div className="footer__text">
+            <p className="footer__brand">Café Foundou</p>
+            <p className="footer__note">Les prix sont indiqués en DT.</p>
+          </div>
         </div>
       </footer>
     </div>

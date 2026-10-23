@@ -16,6 +16,7 @@ import { type MenuCategory, type MenuItem } from '../data/menu';
 import { isDefaultMenu } from '../data/menuStorage';
 import { formatPriceWithUnit } from '../lib/price';
 import { findItem, uniqueItemId, type DraftAction, type DraftState } from './draftStore';
+import { publishMenuToSupabase } from '../lib/supabaseMenu';
 import { Brand } from '../components/Brand';
 import { CategoryManager } from './CategoryManager';
 import { ConfirmDialog } from './ConfirmDialog';
@@ -27,6 +28,8 @@ interface AdminDashboardProps {
   state: DraftState;
   dispatch: React.Dispatch<DraftAction>;
   notify: NotifyFn;
+  /** True when the browser refused the last localStorage write. */
+  storageFailed: boolean;
   onLogout: () => void;
 }
 
@@ -36,20 +39,29 @@ interface ConfirmState {
   title: string;
   body: string;
   confirmLabel: string;
+  busyLabel?: string;
   danger?: boolean;
   onConfirm: () => void;
 }
 
 function itemState(item: MenuItem): { key: 'live' | 'hidden' | 'pending'; label: string } {
-  if (item.status === 'pending' || item.price === null) return { key: 'pending', label: 'À confirmer' };
+  if (item.status === 'pending' || item.price === null)
+    return { key: 'pending', label: 'À confirmer' };
   if (!item.visible) return { key: 'hidden', label: 'Masqué' };
   return { key: 'live', label: 'Publié' };
 }
 
-export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashboardProps) {
+export function AdminDashboard({
+  state,
+  dispatch,
+  notify,
+  storageFailed,
+  onLogout,
+}: AdminDashboardProps) {
   const [editor, setEditor] = useState<EditorState | null>(null);
   const [confirm, setConfirm] = useState<ConfirmState | null>(null);
   const [publishOpen, setPublishOpen] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   const items = useMemo(
@@ -91,7 +103,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
         ...(values.note ? { note: values.note } : {}),
       };
       dispatch({ type: 'add-item', categoryId: values.categoryId, item });
-      notify(`« ${values.name} » ajouté · enregistré localement`);
+      notify(`« ${values.name} » ajouté · brouillon local`);
     } else {
       dispatch({
         type: 'update-item',
@@ -107,8 +119,8 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
       const moved = values.categoryId !== editorCategory.id;
       notify(
         moved
-          ? `« ${values.name} » déplacé vers « ${state.categories.find((c) => c.id === values.categoryId)?.name ?? ''} » · enregistré localement`
-          : `« ${values.name} » mis à jour · enregistré localement`,
+          ? `« ${values.name} » déplacé vers « ${state.categories.find((c) => c.id === values.categoryId)?.name ?? ''} » · brouillon local`
+          : `« ${values.name} » mis à jour · brouillon local`,
       );
     }
     setEditor(null);
@@ -117,13 +129,13 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
   const askDelete = (item: MenuItem) => {
     setConfirm({
       title: 'Supprimer cet article ?',
-      body: `« ${item.name} » sera retiré de la carte locale de ce navigateur. Cette action est enregistrée immédiatement ; « Réinitialiser » permet de revenir à la carte d’origine.`,
+      body: `« ${item.name} » sera retiré du brouillon local de ce navigateur. La modification est immédiate ; « Réinitialiser » permet de revenir à la carte d’origine.`,
       confirmLabel: 'Supprimer',
       danger: true,
       onConfirm: () => {
         dispatch({ type: 'remove-item', itemId: item.id });
         setConfirm(null);
-        notify(`« ${item.name} » supprimé · enregistré localement`, 'warn');
+        notify(`« ${item.name} » supprimé · brouillon local`, 'warn');
       },
     });
   };
@@ -133,6 +145,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
       title: 'Réinitialiser la carte ?',
       body: 'Toutes les modifications enregistrées dans ce navigateur seront perdues et la carte d’origine à huit catégories sera restaurée. Les autres appareils ne sont pas concernés.',
       confirmLabel: 'Réinitialiser',
+      busyLabel: 'Réinitialisation…',
       danger: true,
       onConfirm: () => {
         dispatch({ type: 'reset' });
@@ -147,7 +160,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
       <header className="admin__bar tone-espresso">
         <div className="admin__bar-inner">
           <div className="admin__identity">
-            <Brand variant="mark" className="admin__mark" />
+            <Brand variant="mark" className="admin__mark" onDark />
             <div className="admin__identity-text">
               <p className="admin__shop">Café Foundou</p>
               <p className="admin__role">Espace propriétaire</p>
@@ -169,11 +182,23 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
       <div className="admin__notice" role="note">
         <TriangleAlert size={17} aria-hidden="true" className="admin__notice-icon" />
         <p>
-          <strong>Prototype non protégé.</strong> Aucune authentification réelle. Les
-          modifications sont enregistrées <strong>uniquement dans ce navigateur</strong> et ne
-          sont pas visibles par les visiteurs.
+          <strong>Prototype local.</strong> La connexion est vérifiée par Supabase Auth, mais cette
+          page n’écrit rien sur un serveur. Les modifications restent{' '}
+          <strong>dans ce navigateur</strong> : les visiteurs d’un autre appareil voient toujours la
+          carte d’origine.
         </p>
       </div>
+
+      {storageFailed ? (
+        <div className="admin__storage-alert" role="alert">
+          <TriangleAlert size={17} aria-hidden="true" className="admin__storage-alert-icon" />
+          <p>
+            <strong>Stockage local indisponible.</strong> Les modifications restent actives dans cet
+            onglet, mais elles seront perdues au rechargement. Autorisez le stockage du site ou
+            libérez de l’espace, puis recommencez.
+          </p>
+        </div>
+      ) : null}
 
       <main className="admin__main">
         <header className="admin-head">
@@ -182,7 +207,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
             <h1 className="admin-title">Le menu</h1>
             <p className="admin-sub">
               {live} article{live > 1 ? 's' : ''} publié{live > 1 ? 's' : ''} sur {items.length}
-              {dirty ? <span className="admin-dirty">Modifiée localement</span> : null}
+              {dirty ? <span className="admin-dirty">Brouillon local</span> : null}
             </p>
           </div>
           <div className="admin-head__actions">
@@ -202,7 +227,12 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
             >
               Réinitialiser
             </button>
-            <button type="button" className="button button--sm" onClick={() => setPublishOpen(true)}>
+            <button
+              type="button"
+              className="button button--sm"
+              onClick={() => setPublishOpen(true)}
+              disabled={publishing}
+            >
               Publier
             </button>
           </div>
@@ -259,7 +289,11 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
                       title="Monter la catégorie"
                       disabled={!canUp}
                       onClick={() =>
-                        dispatch({ type: 'move-category', categoryId: category.id, direction: 'up' })
+                        dispatch({
+                          type: 'move-category',
+                          categoryId: category.id,
+                          direction: 'up',
+                        })
                       }
                     >
                       <ArrowUp size={15} aria-hidden="true" />
@@ -271,7 +305,11 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
                       title="Descendre la catégorie"
                       disabled={!canDown}
                       onClick={() =>
-                        dispatch({ type: 'move-category', categoryId: category.id, direction: 'down' })
+                        dispatch({
+                          type: 'move-category',
+                          categoryId: category.id,
+                          direction: 'down',
+                        })
                       }
                     >
                       <ArrowDown size={15} aria-hidden="true" />
@@ -359,7 +397,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
                               onClick={() => {
                                 dispatch({ type: 'toggle-item', itemId: item.id });
                                 notify(
-                                  `« ${item.name} » ${item.visible ? 'masqué' : 'réaffiché'} · enregistré localement`,
+                                  `« ${item.name} » ${item.visible ? 'masqué' : 'réaffiché'} · brouillon local`,
                                   item.visible ? 'info' : 'success',
                                 );
                               }}
@@ -423,6 +461,7 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
           title={confirm.title}
           body={confirm.body}
           confirmLabel={confirm.confirmLabel}
+          busyLabel={confirm.busyLabel}
           danger={confirm.danger}
           onConfirm={confirm.onConfirm}
           onClose={() => setConfirm(null)}
@@ -431,25 +470,52 @@ export function AdminDashboard({ state, dispatch, notify, onLogout }: AdminDashb
 
       {publishOpen ? (
         <Modal
-          title="Publication partagée indisponible"
-          description="Ce prototype n’a pas de serveur."
-          onClose={() => setPublishOpen(false)}
+          title="Publier la carte"
+          description="Publier vers le menu public partagé."
+          onClose={() => {
+            if (publishing) return;
+            setPublishOpen(false);
+          }}
           footer={
-            <button type="button" className="button" onClick={() => setPublishOpen(false)}>
-              Compris
-            </button>
+            <>
+              <button
+                type="button"
+                className="button button--ghost"
+                onClick={() => setPublishOpen(false)}
+                disabled={publishing}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                className="button"
+                disabled={publishing}
+                onClick={async () => {
+                  setPublishing(true);
+                  const result = await publishMenuToSupabase();
+                  setPublishing(false);
+                  if (result.ok) {
+                    notify('Carte publiée avec succès', 'success');
+                    setPublishOpen(false);
+                  } else {
+                    notify(
+                      "Échec de la publication. Vérifiez qu'il y a au moins un article publié avec un prix.",
+                      'warn',
+                    );
+                  }
+                }}
+              >
+                {publishing ? 'Publication…' : 'Publier maintenant'}
+              </button>
+            </>
           }
         >
           <p className="modal__paragraph">
-            Vos modifications sont enregistrées dans le stockage de <strong>ce navigateur</strong>.
-            Elles survivent à un rechargement, mais les visiteurs qui ouvrent le site sur un autre
-            appareil voient toujours la carte d’origine.
+            Cela enverra une copie figée du brouillon actuel vers le site public. Seuls les articles{' '}
+            <strong>confirmés</strong>, <strong>visibles</strong> et avec un <strong>prix</strong>{' '}
+            seront publiés. Les catégories sans article publiable sont automatiquement masquées.
           </p>
-          <p className="modal__paragraph">
-            « Publier » demanderait un serveur et une base de données partagée. Aucun n’est branché
-            ici. La version réelle demandera aussi une authentification côté serveur et une piste
-            d’audit. Voir <code>ADMIN-PROTOTYPE.md</code>.
-          </p>
+          <p className="modal__paragraph">Les visiteurs verront cette version après publication.</p>
         </Modal>
       ) : null}
     </div>

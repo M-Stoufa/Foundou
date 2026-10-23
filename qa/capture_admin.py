@@ -22,6 +22,8 @@ from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
+from supabase_qa import mock_owner_api, owner_session
+
 ROOT = Path(__file__).resolve().parent.parent
 WIDTHS = [320, 390, 768, 1024, 1440]
 
@@ -56,7 +58,12 @@ def main() -> int:
                 has_touch=width <= 430,
                 locale="fr-TN",
             )
+            if not owner_session(context):
+                print("skip: no local Supabase configuration for the guarded dashboard")
+                context.close()
+                continue
             page = context.new_page()
+            mock_owner_api(page)
 
             # --- sign-in
             page.goto(args.url + "#/admin", wait_until="networkidle")

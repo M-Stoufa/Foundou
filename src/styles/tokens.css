@@ -1,33 +1,38 @@
 /* ==========================================================================
    Design tokens — Café Foundou
    A warm, editorial hospitality system: ivory paper, espresso ink, one
-   restrained caramel accent. Every value below is a decision, not a default.
+   restrained terracotta accent taken from the café's own logo. Every value
+   below is a decision, not a default.
    ========================================================================== */
 
 :root {
   /* --- Surfaces ------------------------------------------------------- */
-  --paper: #fbf7f0;
-  --paper-warm: #f5eee3;
-  --paper-sunk: #f1e8da;
-  --surface: #fffdfa;
+  --paper: #faf5ec;
+  --paper-warm: #f3eadc;
+  --paper-sunk: #efe4d3;
+  --surface: #fffdf8;
+  /* A fixed cream for the logo disc on dark admin chrome. It must not flip
+     when .tone-espresso reassigns the surface tokens. */
+  --brand-disc: #fbf6ed;
 
   /* --- Ink ------------------------------------------------------------ */
-  --ink: #241c17;
-  --ink-soft: #4b3d33;
-  --ink-muted: #7a6759;
-  --ink-faint: #8d7a6b;
-  /* --- Accent (caramel / bronze) -------------------------------------- */
-  --accent: #9c5f2e;
-  --accent-deep: #7a4520;
-  --accent-tint: #f1e3d3;
-  --accent-line: #c8a077;
+  --ink: #211914;
+  --ink-soft: #4a3a2f;
+  --ink-muted: #756151;
+  --ink-faint: #8a7564;
+
+  /* --- Accent (terracotta from the logo) ------------------------------ */
+  --accent: #b34a2c;
+  --accent-deep: #8a341d;
+  --accent-tint: #f5e3d9;
+  --accent-line: #d9b5a1;
 
   /* --- Lines ---------------------------------------------------------- */
   /* Rules must be *visible* on a normal monitor: a 1px hairline below ~1.3:1
      disappears completely against the paper, which killed the price leaders. */
-  --rule: #d8c7ae;
-  --rule-soft: #ded2bc;
-  --rule-strong: #a9855c;
+  --rule: #d9c8b0;
+  --rule-soft: #e4d8c4;
+  --rule-strong: #a8835e;
 
   /* --- Feedback (admin prototype only) -------------------------------- */
   --danger: #9b2c2c;
@@ -41,8 +46,9 @@
 
   /* --- Typography ----------------------------------------------------- */
   --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  --font-sans:
+    'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
 
   --step--2: 0.6875rem;
   --step--1: clamp(0.75rem, 0.735rem + 0.075vw, 0.8125rem);
@@ -51,6 +57,7 @@
   --step-2: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
   --step-3: clamp(1.5rem, 1.32rem + 0.9vw, 2rem);
   --step-4: clamp(1.9rem, 1.45rem + 2.1vw, 3rem);
+  --step-5: clamp(2.35rem, 1.6rem + 3.2vw, 3.9rem);
 
   --tracking-label: 0.18em;
   --tracking-tight: -0.015em;
@@ -77,9 +84,9 @@
   --r-pill: 999px;
 
   /* --- Elevation (used sparingly) ------------------------------------- */
-  --shadow-sm: 0 1px 2px rgb(36 28 23 / 5%);
-  --shadow-md: 0 2px 6px rgb(36 28 23 / 5%), 0 18px 40px -26px rgb(36 28 23 / 26%);
-  --shadow-lg: 0 4px 12px rgb(36 28 23 / 6%), 0 40px 70px -40px rgb(36 28 23 / 34%);
+  --shadow-sm: 0 1px 2px rgb(33 25 20 / 5%);
+  --shadow-md: 0 2px 6px rgb(33 25 20 / 5%), 0 18px 40px -26px rgb(33 25 20 / 26%);
+  --shadow-lg: 0 4px 12px rgb(33 25 20 / 6%), 0 40px 70px -40px rgb(33 25 20 / 34%);
 
   /* --- Motion --------------------------------------------------------- */
   --dur-1: 120ms;
@@ -94,11 +101,11 @@
 
   /* --- Layout --------------------------------------------------------- */
   --measure: 34rem;
-  --page-max: 66rem;
-  --rail-w: 13rem;
-  --rail-gap: var(--sp-8);
+  --page-max: 68rem;
+  --rail-w: 13.5rem;
+  --rail-gap: var(--sp-9);
   --nav-h: 3.5rem;
-  --gutter: clamp(1.25rem, 5vw, 3.5rem);
+  --gutter: clamp(1.25rem, 5vw, 3.75rem);
 }
 
 /* Dark, warm shell used by the admin prototype chrome. */

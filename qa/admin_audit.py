@@ -27,6 +27,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 from layout_audit import STYLE_JS, contrast, parse_rgb
+from supabase_qa import mock_owner_api, owner_session
 
 ROOT = Path(__file__).resolve().parent.parent
 WIDTHS = [320, 360, 375, 390, 430, 768, 1024, 1280, 1440]
@@ -225,12 +226,13 @@ def audit_login(page, width: int) -> dict:
 
     check_contrast(page, LOGIN_PAIRS, errors)
 
-    # Structure: the form must never claim credentials are checked.
+    # The notice must describe what actually happens: credentials are checked
+    # by Supabase Auth, and only the owner allow-list gets in.
     notice_text = page.evaluate(
         "() => (document.querySelector('.login__notice')?.innerText || '').toLowerCase()"
     )
-    if "aucune vérification" not in notice_text:
-        errors.append("login notice does not state that no verification happens")
+    if "supabase auth" not in notice_text:
+        errors.append("login notice does not state that Supabase Auth verifies credentials")
 
     return {"errors": errors, "warnings": warnings, "data": data}
 
@@ -366,8 +368,8 @@ def audit_dashboard(page, width: int) -> dict:
         else:
             if not toast["inside"]:
                 errors.append(f"toast outside viewport: {toast}")
-            if "non persisté" not in toast["text"]:
-                errors.append("toast does not say the change is not persisted")
+            if "brouillon local" not in toast["text"]:
+                errors.append("toast does not say the change is a browser-local draft")
             value = ratio(page, ".toast__text", ".toast")
             if value is not None and value < 4.5:
                 errors.append(f"toast text contrast {value}:1")
@@ -396,7 +398,16 @@ def main() -> int:
                     has_touch=width <= 430,
                     locale="fr-TN",
                 )
+                if tag == 'dashboard':
+                    # The real guard needs an owner session; seed a test one and
+                    # answer the allow-list query without touching any server.
+                    if not owner_session(context):
+                        print('         SKIP   dashboard: no local Supabase configuration')
+                        context.close()
+                        continue
                 page = context.new_page()
+                if tag == 'dashboard':
+                    mock_owner_api(page)
                 page.goto(args.url + route, wait_until="networkidle")
                 page.wait_for_timeout(450)
                 result = (

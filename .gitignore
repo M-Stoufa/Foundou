@@ -12,6 +12,10 @@ qa/report/
 __pycache__/
 *.pyc
 
+# Editor / build artefacts
+vite.config.js
+vite.config.d.ts
+
 # Editors / OS
 .vscode/*
 !.vscode/settings.json

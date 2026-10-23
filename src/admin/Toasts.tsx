@@ -23,8 +23,9 @@ interface ToastsProps {
 
 /**
  * Bottom-anchored confirmation messages. Every message that changes data says
- * "enregistré localement": the write is a browser-only snapshot, never a
- * server save. The UI must not imply shared publication.
+ * "brouillon local": the write is a browser-only snapshot, never a server
+ * save. The persistent dashboard banner explains that it is not shared; a
+ * separate alert appears if the browser refuses the write.
  */
 export function Toasts({ toasts, onDismiss }: ToastsProps) {
   return (

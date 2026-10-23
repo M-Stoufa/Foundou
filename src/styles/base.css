@@ -21,17 +21,18 @@ body {
   min-height: 100dvh;
   background-color: var(--paper);
   background-image: radial-gradient(
-    120% 70% at 50% -12%,
-    var(--surface) 0%,
-    var(--paper) 46%,
-    var(--paper-warm) 100%
+    90% 46% at 50% -10%,
+    rgb(255 253 248 / 96%) 0%,
+    rgb(255 253 248 / 0%) 100%
   );
   background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--step-0);
   line-height: 1.6;
-  font-feature-settings: 'cv05' 1, 'ss03' 1;
+  font-feature-settings:
+    'cv05' 1,
+    'ss03' 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -103,6 +104,46 @@ a {
 
 .skip-link:focus-visible {
   transform: translateY(0);
+}
+
+/* --- Brand -------------------------------------------------------------- */
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.brand__mark {
+  display: block;
+  flex: none;
+  width: 100%;
+}
+
+.brand__mark img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 220 / 225;
+  object-fit: contain;
+}
+
+.brand__name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* The logo is terracotta and near-black; on the espresso admin shell it sits
+   on a fixed cream disc so the dark part of the artwork stays visible. */
+.brand--on-dark .brand__mark {
+  padding: 0.22rem;
+  border-radius: 50%;
+  background-color: var(--brand-disc);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 18%);
 }
 
 /* --- Shared primitives -------------------------------------------------- */
